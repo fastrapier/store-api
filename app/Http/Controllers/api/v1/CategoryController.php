@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CategoryController extends Controller
@@ -19,20 +20,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCategoryRequest $request)
     {
-//        \Log::info(print_r($request->all(), true));
-//        \Log::info(print_r($request->validated(), true));
         $created_category = Category::create($request->validated());
 
         return new CategoryResource($created_category);
@@ -44,14 +35,6 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return new CategoryResource($category);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
     }
 
     /**
