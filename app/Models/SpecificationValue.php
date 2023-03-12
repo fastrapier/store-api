@@ -9,6 +9,12 @@ class SpecificationValue extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'value',
+        'specification_id',
+        'product_id'
+    ];
+
     public function specification()
     {
         return $this->belongsTo(Specification::class);
