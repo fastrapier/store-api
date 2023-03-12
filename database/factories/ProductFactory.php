@@ -19,10 +19,10 @@ class ProductFactory extends Factory
         return [
             'title' => $this->faker->title,
             'article' => $this->faker->unique()->iban,
-            'price' => $this->faker->randomFloat(2, 0, 10),
+            'retail_price' => $this->faker->randomFloat(2, 0, 10),
+            'configurator_price' => $this->faker->randomFloat(2, 0, 10),
             'in_stock' => $this->faker->boolean,
             'description' => $this->faker->text,
-            'photo' => 'no_image.jpg',
             'category_id' => $this->faker->numberBetween(1,10),
             'product_type_id' => $this->faker->numberBetween(1,10)
         ];

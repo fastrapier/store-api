@@ -14,13 +14,14 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'article' => $this->article,
-            'price' => $this->price,
+            'retail_price' => $this->retail_price,
+            'configurator_price' => $this->configurator_price,
             'in_stock' => $this->in_stock,
             'description' => $this->description,
             'photo' => $this->photo,
             'category_id' => $this->category_id,
             'product_type_id' => $this->product_type_id,
-            'specifications_values' => $this->specifications_values
+            'specifications_values' => SpecificationValueResource::collection($this->specifications_values)
         ];
     }
 }

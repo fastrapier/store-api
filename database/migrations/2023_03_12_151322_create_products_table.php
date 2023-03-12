@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('article')->unique();
-            $table->float('price');
+            $table->float('retail_price');
+            $table->float('configurator_price');
             $table->boolean('in_stock');
-            $table->text('description');
-            $table->string('photo');
+            $table->text('description')->nullable();
+            $table->string('photo')->default('no_image.jpg');
             $table
                 ->foreignId('category_id')
                 ->constrained('categories')

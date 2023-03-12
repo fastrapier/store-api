@@ -23,5 +23,6 @@ Route::apiResources(
         'categories' => \App\Http\Controllers\api\v1\CategoryController::class,
         'product_types' => \App\Http\Controllers\api\v1\ProductTypeController::class,
         'specifications' => \App\Http\Controllers\api\v1\SpecificationController::class,
+        'products' => \App\Http\Controllers\api\v1\ProductController::class,
     ]
 );
