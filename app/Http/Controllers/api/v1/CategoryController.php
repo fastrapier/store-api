@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get());
+
+        return CategoryResource::collection(Category::with('children')->whereNull('parent_id')->paginate());
     }
 
     /**
@@ -24,7 +25,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $created_category = Category::create($request->validated());
+        $validated = $request->validated();
+
+        if(isset($validated['parent_id']) && !empty($validated['parent_id']))
+        {
+            Category::findOrFail($validated['parent_id']);
+        }
+
+        $created_category = Category::create($validated);
 
         return new CategoryResource($created_category);
     }

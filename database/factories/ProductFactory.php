@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ */
+class ProductFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'title' => $this->faker->title,
+            'article' => $this->faker->unique()->iban,
+            'price' => $this->faker->randomFloat(2, 0, 10),
+            'in_stock' => $this->faker->boolean,
+            'description' => $this->faker->text,
+            'photo' => 'no_image.jpg',
+            'category_id' => $this->faker->numberBetween(1,10),
+            'product_type_id' => $this->faker->numberBetween(1,10)
+        ];
+    }
+}
