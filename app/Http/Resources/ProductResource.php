@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'photo' => $this->photo,
             'category_id' => $this->category_id,
             'product_type_id' => $this->product_type_id,
-            'specifications_values' => SpecificationValueResource::collection($this->specifications_values)
+            'specifications_values' => ProductSpecificationValueResource::collection($this->specifications_values)
         ];
     }
 }
