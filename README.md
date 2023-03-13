@@ -4,6 +4,7 @@
   - ```composer install```
   - ```npm install```
 - Создать файл `.env`, делаете копию `.env.example`
+- Создать ключ приложения `php artisan key:generate`
 - Запускаете миграции, `php artisan migrate:fresh --seed`, если спросит в консоли создать ли базу данных, то напишите `yes`
 - Запустить сервер `php artisan serve`
 
