@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Configurator;
+use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,8 +26,8 @@ class ProductFactory extends Factory
             'configurator_price' => $this->faker->randomFloat(2, 0, 10),
             'in_stock' => $this->faker->boolean,
             'description' => $this->faker->text,
-            'category_id' => $this->faker->numberBetween(1,10),
-            'product_type_id' => $this->faker->numberBetween(1,10)
+            'category_id' => Category::factory(),
+            'product_type_id' => ProductType::factory(),
         ];
     }
 }

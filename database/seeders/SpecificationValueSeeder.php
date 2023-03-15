@@ -9,6 +9,6 @@ class SpecificationValueSeeder extends Seeder
 {
     public function run(): void
     {
-        SpecificationValue::factory(60)->create();
+        SpecificationValue::factory(40)->create();
     }
 }

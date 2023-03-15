@@ -2,15 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Models\Configurator;
 use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SpecificationFactory extends Factory
+class Configurator_ProductTypesFactory extends Factory
 {
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'configurator_id' => Configurator::factory(),
             'product_type_id' => ProductType::factory()
         ];
     }
