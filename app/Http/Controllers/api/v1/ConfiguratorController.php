@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRequests\StoreConfiguratorRequest;
 use App\Http\Requests\UpdateRequests\UpdateConfiguratorRequest;
 use App\Http\Resources\ConfiguratorResource;
 use App\Models\Configurator;
+use Symfony\Component\HttpFoundation\Response;
 
 class ConfiguratorController extends Controller
 {
@@ -24,7 +25,7 @@ class ConfiguratorController extends Controller
 
     public function show(Configurator $configurator)
     {
-        //
+        return new ConfiguratorResource($configurator);
     }
 
     public function update(UpdateConfiguratorRequest $request, Configurator $configurator)
@@ -34,6 +35,8 @@ class ConfiguratorController extends Controller
 
     public function destroy(Configurator $configurator)
     {
-        //
+        $configurator->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

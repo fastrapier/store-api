@@ -12,17 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SpecificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return SpecificationResource::collection(Specification::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreSpecificationRequest $request)
     {
         $validated = $request->validated();
@@ -35,17 +29,11 @@ class SpecificationController extends Controller
         return new SpecificationResource(Specification::create($request->validated()));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Specification $specification)
     {
         return new SpecificationResource($specification);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateSpecificationRequest $request, Specification $specification)
     {
         $validated = $request->validated();
@@ -60,9 +48,6 @@ class SpecificationController extends Controller
         return new SpecificationResource($specification);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Specification $specifications)
     {
         $specifications->delete();
