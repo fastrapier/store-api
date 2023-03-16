@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\ConfiguratorProducts;
+use App\Models\ConfiguratorProduct;
 use Illuminate\Database\Seeder;
 
 class ConfiguratorSeeder extends Seeder
 {
     public function run(): void
     {
-        ConfiguratorProducts::factory(10)->create();
+        ConfiguratorProduct::factory(10)->create();
     }
 }

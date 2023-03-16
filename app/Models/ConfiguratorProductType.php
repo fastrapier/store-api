@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Configurator_ProductTypes extends Model
+class ConfiguratorProductType extends Model
 {
 
     use HasFactory;
@@ -18,6 +18,6 @@ class Configurator_ProductTypes extends Model
 
     public function products(): HasMany
     {
-        return $this->hasMany(ConfiguratorProducts::class);
+        return $this->hasMany(ConfiguratorProduct::class);
     }
 }

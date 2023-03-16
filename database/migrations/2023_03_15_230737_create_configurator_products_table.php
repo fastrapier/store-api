@@ -9,13 +9,11 @@ return new class extends Migration {
     {
         Schema::create('configurator_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('configurator__product_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('configurator_product_type_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
-//configurator__product_types_id
-//configurator__product_type_id
     public function down(): void
     {
         Schema::dropIfExists('configurator_products');

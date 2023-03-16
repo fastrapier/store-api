@@ -18,6 +18,6 @@ class Configurator extends Model
 
     public function configuratorProductType(): HasMany
     {
-        return $this->hasMany(Configurator_ProductTypes::class);
+        return $this->hasMany(ConfiguratorProductType::class);
     }
 }

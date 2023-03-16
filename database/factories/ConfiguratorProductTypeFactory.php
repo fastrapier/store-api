@@ -6,7 +6,7 @@ use App\Models\Configurator;
 use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class Configurator_ProductTypesFactory extends Factory
+class ConfiguratorProductTypeFactory extends Factory
 {
     public function definition(): array
     {

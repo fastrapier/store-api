@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConfiguratorProducts extends Model
+class ConfiguratorProduct extends Model
 {
     use HasFactory;
 
@@ -16,7 +16,7 @@ class ConfiguratorProducts extends Model
 
     public function product_type()
     {
-        return $this->belongsTo(Configurator_ProductTypes::class);
+        return $this->belongsTo(ConfiguratorProductType::class);
     }
 
 }
