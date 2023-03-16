@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->timestamps();
         });
     }
-
+//configurator__product_types_id
+//configurator__product_type_id
     public function down(): void
     {
         Schema::dropIfExists('configurator_products');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRequests\StoreConfiguratorRequest;
 use App\Http\Requests\UpdateRequests\UpdateConfiguratorRequest;
+use App\Http\Resources\ConfiguratorResource;
 use App\Models\Configurator;
 
 class ConfiguratorController extends Controller
@@ -12,7 +13,7 @@ class ConfiguratorController extends Controller
 
     public function index()
     {
-        return Configurator::with('configuratorProductType')->get();
+        return ConfiguratorResource::collection(Configurator::all());
     }
 
 

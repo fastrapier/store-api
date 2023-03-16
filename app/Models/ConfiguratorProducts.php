@@ -9,4 +9,14 @@ class ConfiguratorProducts extends Model
 {
     use HasFactory;
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function product_type()
+    {
+        return $this->belongsTo(Configurator_ProductTypes::class);
+    }
+
 }
