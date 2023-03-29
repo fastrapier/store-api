@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\RegisterUserRequest;
 use App\Http\Requests\User\LoginUserRequest;
-
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signUp']]);
     }
 
     /**
@@ -23,23 +23,29 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json([
+                'status' => false,
+                'error' => 'Unauthorized'
+            ], 401);
         }
 
         return $this->respondWithToken($token);
     }
 
-    public function register(RegisterUserRequest $request)
+    public function signUp(RegisterUserRequest $request)
     {
         $validated = $request->validated();
 
         $validated['password'] = bcrypt($request->password);
+
         $user = User::create($validated);
 
         return response()->json([
+            'status' => true,
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => new UserResource($user),
+            'token' => auth()->login($user)
         ], 201);
     }
 
@@ -50,7 +56,10 @@ class AuthController extends Controller
      */
     public function user()
     {
-        return response()->json(auth()->user());
+        return response()->json([
+            'status' => true,
+            'user' => new UserResource(auth()->user())
+        ]);
     }
 
     /**
@@ -62,7 +71,10 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully logged out'
+        ]);
     }
 
     /**
@@ -85,10 +97,11 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
+            'status' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'user' => new UserResource(auth()->user())
         ]);
     }
 }

@@ -13,8 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-
-        return CategoryResource::collection(Category::with('children')->whereNull('parent_id'));
+        return CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get());
     }
 
     public function store(StoreCategoryRequest $request)
