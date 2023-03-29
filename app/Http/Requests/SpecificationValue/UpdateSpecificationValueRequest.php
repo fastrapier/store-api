@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\UpdateRequests;
+namespace App\Http\Requests\SpecificationValue;
 
 use Illuminate\Foundation\Http\FormRequest;
 

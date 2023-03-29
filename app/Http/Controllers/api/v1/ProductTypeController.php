@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequests\StoreProductTypeRequest;
-use App\Http\Requests\UpdateRequests\UpdateProductTypeRequest;
+use App\Http\Requests\ProductType\StoreProductTypeRequest;
+use App\Http\Requests\ProductType\UpdateProductTypeRequest;
 use App\Http\Resources\ProductTypeResource;
 use App\Models\ProductType;
 use Symfony\Component\HttpFoundation\Response;

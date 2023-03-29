@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequests\StoreCategoryRequest;
-use App\Http\Requests\UpdateRequests\UpdateCategoryRequest;
+use App\Requests\Category\StoreCategoryRequest;
+use App\Requests\Category\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;

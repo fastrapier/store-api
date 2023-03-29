@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Requests\UpdateRequests;
+namespace App\Http\Requests\Specification;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSpecificationRequest extends FormRequest
+class StoreSpecificationRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'name' => 'max:255',
-            'product_type_id' => 'integer'
+            'name' => 'required|max:255',
+            'product_type_id' => 'required|integer'
         ];
     }
 

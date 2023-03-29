@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequests\StoreSpecificationValueRequest;
-use App\Http\Requests\UpdateRequests\UpdateSpecificationValueRequest;
+use App\Http\Requests\SpecificationValue\StoreSpecificationValueRequest;
+use App\Http\Requests\SpecificationValue\UpdateSpecificationValueRequest;
 use App\Http\Resources\SpecificationValueResource;
 use App\Models\Product;
 use App\Models\Specification;

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Requests\UpdateRequests;
+namespace App\Http\Requests\Configurator;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductTypeRequest extends FormRequest
+class UpdateConfiguratorRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     public function rules(): array
     {
         return [
-            'title' => 'max:255|string'
+            //
         ];
     }
 }
