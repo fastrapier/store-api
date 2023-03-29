@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Requests\Category\StoreCategoryRequest;
-use App\Requests\Category\UpdateCategoryRequest;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        return CategoryResource::collection(Category::with('children')->whereNull('parent_id')->paginate());
+        return CategoryResource::collection(Category::with('children')->whereNull('parent_id'));
     }
 
     public function store(StoreCategoryRequest $request)

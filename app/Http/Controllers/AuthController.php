@@ -33,9 +33,10 @@ class AuthController extends Controller
     public function register(RegisterUserRequest $request)
     {
         $validated = $request->validated();
-        $validated['password'] = bcrypt($request->password);
 
+        $validated['password'] = bcrypt($request->password);
         $user = User::create($validated);
+
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
@@ -47,7 +48,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function user()
     {
         return response()->json(auth()->user());
     }

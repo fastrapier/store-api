@@ -11,13 +11,21 @@ class RegisterUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'required|string|max:255'
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|phone:RU',
+            'password' => 'required|string|max:255|min:8|confirmed'
         ];
     }
 
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function messages()
+    {
+        return [
+            'phone.phone' => 'The :attribute field must be a valid number.'
+        ];
     }
 }
