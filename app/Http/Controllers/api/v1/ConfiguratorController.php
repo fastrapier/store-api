@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequests\StoreConfiguratorRequest;
-use App\Http\Requests\UpdateRequests\UpdateConfiguratorRequest;
+use App\Http\Requests\Configurator\StoreConfiguratorRequest;
+use App\Http\Requests\Configurator\UpdateConfiguratorRequest;
 use App\Http\Resources\ConfiguratorResource;
 use App\Models\Configurator;
 use Symfony\Component\HttpFoundation\Response;

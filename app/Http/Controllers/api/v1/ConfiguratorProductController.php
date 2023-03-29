@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ConfiguratorProductResource;
+
 use App\Models\ConfiguratorProduct;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

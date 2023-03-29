@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StoreRequests;
+namespace App\Http\Requests\ProductType;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductTypeRequest extends FormRequest
+class UpdateProductTypeRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,7 @@ class StoreProductTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255|string'
+            'title' => 'max:255|string'
         ];
     }
 }
