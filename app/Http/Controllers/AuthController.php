@@ -45,7 +45,7 @@ class AuthController extends Controller
             'status' => true,
             'message' => 'User successfully registered',
             'user' => new UserResource($user),
-            'token' => auth()->login($user)
+            'access_token' => auth()->login($user)
         ], 201);
     }
 
