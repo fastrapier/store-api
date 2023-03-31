@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecificationValue\StoreSpecificationValueRequest;
 use App\Http\Requests\SpecificationValue\UpdateSpecificationValueRequest;
-use App\Http\Resources\SpecificationValueResource;
+use App\Http\Resources\Configurator\SpecificationValueResource;
 use App\Models\Product;
 use App\Models\Specification;
 use App\Models\SpecificationValue;

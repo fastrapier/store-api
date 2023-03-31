@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ConfiguratorProductTypeResource;
+use App\Http\Resources\Configurator\ConfiguratorProductTypeResource;
 use App\Models\ConfiguratorProductType;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

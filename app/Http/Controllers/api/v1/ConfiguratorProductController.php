@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ConfiguratorProductResource;
+use App\Http\Resources\Configurator\ConfiguratorProductResource;
 
 use App\Models\ConfiguratorProduct;
 use Illuminate\Http\Request;

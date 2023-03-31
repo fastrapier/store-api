@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Configurator\ProductResource;
 use App\Models\Product;
 use App\Services\ProductService;
 use Symfony\Component\HttpFoundation\Response;
