@@ -2,43 +2,41 @@
 
 
 namespace App\Services\impl;
+
+use App\Http\Resources\Category\CategoryCollection;
+use App\Http\Resources\Category\SingleCategoryResource;
 use App\Models\Category;
 use App\Services\CategoryService;
 
 class CategoryServiceImpl implements CategoryService
 {
-    public function findAll()
+    public function findAll(): CategoryCollection
     {
-        $categories = Category::with('products')->get();
-
-        return Category::all();
+        return new CategoryCollection(Category::withCount('products')->get());
     }
 
-    public function findById(Category $category)
+    public function findById(Category $category): SingleCategoryResource
     {
-        return $category;
+        return new SingleCategoryResource($category->loadCount('products'));
     }
 
-    public function create(array $validated)
+    public function create(array $validated): SingleCategoryResource
     {
 
-        if(isset($validated['parent_id']) && !empty($validated['parent_id']))
-        {
+        if (isset($validated['parent_id']) && !empty($validated['parent_id'])) {
             Category::findOrFail($validated['parent_id']);
         }
 
-        $created_category = Category::create($validated);
-
-        return $created_category;
+        return new SingleCategoryResource(Category::create($validated));
     }
 
-    public function update(array $validated, Category $category)
+    public function update(array $validated, Category $category): SingleCategoryResource
     {
         $category->update($validated);
 
         $category->fresh();
 
-        return $category;
+        return new SingleCategoryResource($category);
     }
 
     public function delete(Category $category)

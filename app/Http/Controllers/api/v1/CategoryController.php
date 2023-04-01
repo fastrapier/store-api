@@ -19,25 +19,19 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $data = $this->categoryService->findAll();
-
-        return $data;
+        return $this->categoryService->findAll();
     }
 
     public function store(StoreCategoryRequest $request)
     {
         $validated = $request->validated();
 
-        $category = $this->categoryService->create($validated);
-
-        return $category;
+        return $this->categoryService->create($validated);
     }
 
     public function show(Category $category)
     {
-        $category = $this->categoryService->findById($category);
-
-        return $category;
+        return $this->categoryService->findById($category);
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
@@ -45,9 +39,7 @@ class CategoryController extends Controller
 
         $validated = $request->validated();
 
-        $category = $this->categoryService->update($validated, $category);
-
-        return $category;
+        return $this->categoryService->update($validated, $category);
     }
 
     public function destroy(Category $category)
