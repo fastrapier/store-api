@@ -12,8 +12,9 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 class CategoryController extends Controller
 {
 
-    public function __construct(private CategoryService $categoryService)
+    public function __construct(private readonly CategoryService $categoryService)
     {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
 
     }
 
