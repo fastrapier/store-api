@@ -11,7 +11,7 @@ class SingleCategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'result' => true,
+            'success' => true,
             'data' => [
                 'id' => $this->id,
                 'name' => $this->name,

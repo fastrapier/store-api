@@ -11,7 +11,7 @@ class CategoryCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'result' => true,
+            'success' => true,
             'data' => $this->collection,
         ];
     }

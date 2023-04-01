@@ -8,11 +8,11 @@ interface CategoryService
 {
     public function findAll();
 
-    public function findById(Category $category);
+    public function findById(int $id);
 
     public function create(array $validated);
 
-    public function update(array $validated, Category $category);
+    public function update(array $validated, int $id);
 
-    public function delete(Category $category);
+    public function delete(int $id);
 }

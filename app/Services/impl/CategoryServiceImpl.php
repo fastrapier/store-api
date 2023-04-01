@@ -7,7 +7,6 @@ use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\SingleCategoryResource;
 use App\Models\Category;
 use App\Services\CategoryService;
-
 class CategoryServiceImpl implements CategoryService
 {
     public function findAll(): CategoryCollection
@@ -15,9 +14,11 @@ class CategoryServiceImpl implements CategoryService
         return new CategoryCollection(Category::withCount('products')->get());
     }
 
-    public function findById(Category $category): SingleCategoryResource
+    public function findById(int $id): SingleCategoryResource
     {
-        return new SingleCategoryResource($category->loadCount('products'));
+        $category = Category::findOrFail($id)->withCount('products');
+
+        return new SingleCategoryResource($category);
     }
 
     public function create(array $validated): SingleCategoryResource
@@ -30,8 +31,10 @@ class CategoryServiceImpl implements CategoryService
         return new SingleCategoryResource(Category::create($validated));
     }
 
-    public function update(array $validated, Category $category): SingleCategoryResource
+    public function update(array $validated, int $id): SingleCategoryResource
     {
+        $category = Category::findOrFail($id);
+
         $category->update($validated);
 
         $category->fresh();
@@ -39,8 +42,10 @@ class CategoryServiceImpl implements CategoryService
         return new SingleCategoryResource($category);
     }
 
-    public function delete(Category $category)
+    public function delete(int $id)
     {
+        $category = Category::findOrFail($id);
+
         $category->delete();
     }
 }
