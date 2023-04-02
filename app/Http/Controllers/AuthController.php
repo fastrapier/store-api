@@ -21,16 +21,25 @@ class AuthController extends Controller
      */
     public function login(LoginUserRequest $request)
     {
+        try {
+
         $credentials = $request->validated();
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json([
                 'status' => false,
-                'error' => 'Unauthorized'
-            ], 401);
+                'errors' => 'Provided email address or password is incorrect'
+            ], 422);
         }
 
         return $this->respondWithToken($token);
+        
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => false,
+                'message' => '$exception->getMessage()'
+            ], 500);
+        }
     }
 
     public function signUp(RegisterUserRequest $request)
@@ -44,8 +53,10 @@ class AuthController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'User successfully registered',
-            'user' => new UserResource($user),
-            'access_token' => auth()->login($user)
+            'user' => [
+                new UserResource($user),
+                'access_token' => auth()->login($user)
+                ],
         ], 201);
     }
 
@@ -98,10 +109,12 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => true,
-            'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => new UserResource(auth()->user())
+            'user' => [
+                new UserResource(auth()->user()),
+                'access_token' => $token,
+            ]
         ]);
     }
 }

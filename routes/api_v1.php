@@ -23,7 +23,7 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user', [AuthController::class, 'user']);
-    Route::post("signUp", [AuthController::class, 'signUp']);
+    Route::post("signup", [AuthController::class, 'signUp']);
 });
 Route::apiResources(
     [
