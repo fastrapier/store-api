@@ -22,7 +22,8 @@ storage/*.key
 .env
 Homestead.yaml
 Homestead.json
-
+tmp
+storage/app/postman
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
 
