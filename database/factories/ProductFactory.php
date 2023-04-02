@@ -26,8 +26,8 @@ class ProductFactory extends Factory
             'configurator_price' => $this->faker->randomFloat(2, 0, 10),
             'in_stock' => $this->faker->boolean,
             'description' => $this->faker->text,
-            'category_id' => Category::factory(),
-            'product_type_id' => ProductType::factory(),
+            'category_id' => Category::get()->random()->id,
+            'product_type_id' => ProductType::get()->random()->id,
         ];
     }
 }

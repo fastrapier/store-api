@@ -5,47 +5,45 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use App\Services\CategoryService;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
+
+    public function __construct(private readonly CategoryService $categoryService)
+    {
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
-        return CategoryResource::collection(Category::with('children')->whereNull('parent_id')->get());
+        return $this->categoryService->findAll();
     }
 
     public function store(StoreCategoryRequest $request)
     {
         $validated = $request->validated();
 
-        if(isset($validated['parent_id']) && !empty($validated['parent_id']))
-        {
-            Category::findOrFail($validated['parent_id']);
-        }
-
-        $created_category = Category::create($validated);
-
-        return new CategoryResource($created_category);
+        return $this->categoryService->create($validated);
     }
 
-    public function show(Category $category)
+    public function show(int $id)
     {
-        return new CategoryResource($category);
+        return $this->categoryService->findById($id);
     }
 
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, int $id)
     {
-        $category->update($request->validated());
+        $validated = $request->validated();
 
-        return new CategoryResource($category);
+        return $this->categoryService->update($validated, $id);
     }
 
-    public function destroy(Category $category)
+    public function destroy(int $id)
     {
-        $category->delete();
+        $this->categoryService->delete($id);
 
-        return response(null, ResponseAlias::HTTP_NO_CONTENT);
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

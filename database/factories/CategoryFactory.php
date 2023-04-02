@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class CategoryFactory extends Factory
                 Category::factory(),
                 null
             ]),
-            'description' => $this->faker->sentence
+            'description' => $this->faker->sentence,
         ];
     }
 }

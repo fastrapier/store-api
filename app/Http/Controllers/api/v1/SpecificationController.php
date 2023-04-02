@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Specification\StoreSpecificationRequest;
 use App\Http\Requests\Specification\UpdateSpecificationRequest;
-use App\Http\Resources\SpecificationResource;
+use App\Http\Resources\Configurator\SpecificationResource;
 use App\Models\ProductType;
 use App\Models\Specification;
 use Symfony\Component\HttpFoundation\Response;

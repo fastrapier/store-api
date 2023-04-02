@@ -2,7 +2,7 @@
 
 namespace App\Services\impl;
 
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Configurator\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
