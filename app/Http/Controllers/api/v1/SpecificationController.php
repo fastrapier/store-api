@@ -5,52 +5,43 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Specification\StoreSpecificationRequest;
 use App\Http\Requests\Specification\UpdateSpecificationRequest;
-use App\Http\Resources\Product\SpecificationResource;
-use App\Models\ProductType;
-use App\Models\Specification;
+use App\Services\SpecificationService;
 use Symfony\Component\HttpFoundation\Response;
 
 class SpecificationController extends Controller
 {
+    public function __construct(private readonly SpecificationService $specificationService)
+    {
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
-        return SpecificationResource::collection(Specification::all());
+        return $this->specificationService->findAll();
     }
 
     public function store(StoreSpecificationRequest $request)
     {
         $validated = $request->validated();
 
-        if(isset($validated['product_type_id']))
-        {
-            ProductType::findOrFail($validated['product_type_id']);
-        }
-
-        return new SpecificationResource(Specification::create($request->validated()));
+        return $this->specificationService->create($validated);
     }
 
-    public function show(Specification $specification)
+    public function show(int $id)
     {
-        return new SpecificationResource($specification);
+        return $this->specificationService->findById($id);
     }
 
-    public function update(UpdateSpecificationRequest $request, Specification $specification)
+    public function update(UpdateSpecificationRequest $request, int $id)
     {
         $validated = $request->validated();
 
-        if(isset($validated['product_type_id']))
-        {
-            ProductType::findOrFail($validated['product_type_id']);
-        }
-
-        $specification->update($validated);
-
-        return new SpecificationResource($specification);
+        return $this->specificationService->update($validated, $id);
     }
 
-    public function destroy(Specification $specifications)
+    public function destroy(int $id)
     {
-        $specifications->delete();
+        $this->specificationService->delete($id);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

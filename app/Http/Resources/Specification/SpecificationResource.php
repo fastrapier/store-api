@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Product;
+namespace App\Http\Resources\Specification;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -13,9 +13,6 @@ class SpecificationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'product_type_id' => $this->product_type_id,
-
-//            'productType' => new ProductTypeResource($this->whenLoaded('productType')),
         ];
     }
 }

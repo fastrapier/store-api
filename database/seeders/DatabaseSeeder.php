@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\Specification;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +19,7 @@ class DatabaseSeeder extends Seeder
         ProductType::factory(30)->create();
         Category::factory(10)->hasChildren(5)->hasProducts(50)->create();
         Product::factory(500)->create();
+
+        Specification::factory(50)->create();
     }
 }

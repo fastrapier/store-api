@@ -4,6 +4,7 @@ namespace App\Services\impl;
 
 use App\Http\Resources\ProductType\ProductTypeCollection;
 use App\Http\Resources\ProductType\ProductTypeResource;
+use App\Http\Resources\ProductType\SingleProductTypeResource;
 use App\Models\ProductType;
 use App\Services\ProductTypeService;
 
@@ -15,19 +16,19 @@ class ProductTypeServiceImpl implements ProductTypeService
         return new ProductTypeCollection(ProductType::all());
     }
 
-    public function findById(int $id): ProductTypeResource
+    public function findById(int $id): SingleProductTypeResource
     {
         $productType = ProductType::findOrFail($id)->where('id', '=', $id)->with('specifications')->first();
 
-        return new ProductTypeResource($productType);
+        return new SingleProductTypeResource($productType);
 
     }
 
-    public function create(array $validated): ProductTypeResource
+    public function create(array $validated): SingleProductTypeResource
     {
         $created_product_type = ProductType::create($validated);
 
-        return new ProductTypeResource($created_product_type);
+        return new SingleProductTypeResource($created_product_type);
     }
 
     public function update(array $validated, int $id): ProductTypeResource

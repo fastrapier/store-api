@@ -6,8 +6,10 @@ use App\Services\CategoryService;
 use App\Services\impl\CategoryServiceImpl;
 use App\Services\impl\ProductServiceImpl;
 use App\Services\impl\ProductTypeServiceImpl;
+use App\Services\impl\SpecificationServiceImpl;
 use App\Services\ProductService;
 use App\Services\ProductTypeService;
+use App\Services\SpecificationService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ProductTypeService::class, function () {
             return new ProductTypeServiceImpl();
+        });
+
+        $this->app->bind(SpecificationService::class, function () {
+            return new SpecificationServiceImpl();
         });
     }
 
