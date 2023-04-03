@@ -25,8 +25,8 @@ class AuthController extends Controller
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json([
-                'status' => false,
-                'error' => 'Unauthorized'
+                'success' => false,
+                'error' => 'Provided email address or password is incorrect'
             ], 401);
         }
 
@@ -41,12 +41,15 @@ class AuthController extends Controller
 
         $user = User::create($validated);
 
-        return response()->json([
-            'status' => true,
+        $response = [
+            'success' => true,
             'message' => 'User successfully registered',
             'user' => new UserResource($user),
-            'access_token' => auth()->login($user)
-        ], 201);
+        ];
+
+        $response['user']["access_token"] = auth()->login($user);
+
+        return response()->json($response, 201);
     }
 
     /**
@@ -57,7 +60,7 @@ class AuthController extends Controller
     public function user()
     {
         return response()->json([
-            'status' => true,
+            'success' => true,
             'user' => new UserResource(auth()->user())
         ]);
     }
@@ -72,7 +75,7 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json([
-            'status' => true,
+            'success' => true,
             'message' => 'Successfully logged out'
         ]);
     }
@@ -90,18 +93,19 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
-            'status' => true,
-            'access_token' => $token,
+        $response = [
+            'success' => true,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => new UserResource(auth()->user())
-        ]);
+        ];
+        $response['user']['access_token'] = $token;
+        return response()->json($response);
     }
 }
