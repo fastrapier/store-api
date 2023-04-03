@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
 
     protected $attributes = [
-        'photo' => 'no_image.jpg',
+        'img' => 'no_image.jpg',
         'description' => null
     ];
 
@@ -23,7 +23,7 @@ class Product extends Model
         'configurator_price',
         'in_stock',
         'description',
-        'photo',
+        'img',
         'category_id',
         'product_type_id',
 

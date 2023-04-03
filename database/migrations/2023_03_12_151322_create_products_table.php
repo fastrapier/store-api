@@ -19,7 +19,7 @@ return new class extends Migration
             $table->float('configurator_price');
             $table->boolean('in_stock');
             $table->text('description')->nullable();
-            $table->string('photo')->default('no_image.jpg');
+            $table->string('img')->default('no_image.jpg');
             $table
                 ->foreignId('category_id')
                 ->constrained('categories')

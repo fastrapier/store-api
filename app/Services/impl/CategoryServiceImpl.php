@@ -16,7 +16,7 @@ class CategoryServiceImpl implements CategoryService
 
     public function findById(int $id): SingleCategoryResource
     {
-        $category = Category::findOrFail($id)->where('id', '=' , $id)->with('products')->withCount('products')->first();
+        $category = Category::findOrFail($id)->where('id', '=' , $id)->with('products')->first();
         return new SingleCategoryResource($category);
     }
 
