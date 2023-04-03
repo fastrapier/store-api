@@ -22,11 +22,9 @@ class CategoryServiceImpl implements CategoryService
 
     public function create(array $validated): SingleCategoryResource
     {
-
         if (isset($validated['parent_id']) && !empty($validated['parent_id'])) {
             Category::findOrFail($validated['parent_id']);
         }
-
         return new SingleCategoryResource(Category::create($validated));
     }
 

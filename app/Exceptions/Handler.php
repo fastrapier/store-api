@@ -3,10 +3,12 @@
 namespace App\Exceptions;
 
 use Arr;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Http\Request;
+use TypeError;
 
 class Handler extends ExceptionHandler
 {
@@ -53,7 +55,24 @@ class Handler extends ExceptionHandler
                     'code' => 400
                 ], 400);
             }
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code' => 500
+            ], 500);
+        });
 
+        $this->renderable(function (TypeError $e, Request $request)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => "Id in path not found",
+                'code' => 400
+            ], 400);
+        });
+
+
+        $this->renderable(function (Exception $e, Request $request) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),

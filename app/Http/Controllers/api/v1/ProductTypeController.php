@@ -5,39 +5,43 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductType\StoreProductTypeRequest;
 use App\Http\Requests\ProductType\UpdateProductTypeRequest;
-use App\Http\Resources\Product\ProductTypeResource;
-use App\Models\ProductType;
+use App\Services\ProductTypeService;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductTypeController extends Controller
 {
+    public function __construct(private readonly ProductTypeService $productTypeService)
+    {
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
-        return ProductTypeResource::collection(ProductType::all());
+        return $this->productTypeService->findAll();
     }
 
     public function store(StoreProductTypeRequest $request)
     {
-        $created_product_type = ProductType::create($request->validated());
+        $validated = $request->validated();
 
-        return new ProductTypeResource($created_product_type);
+        return $this->productTypeService->create($validated);
     }
 
-    public function show(ProductType $productType)
+    public function show(int $id)
     {
-        return new ProductTypeResource($productType);
+        return $this->productTypeService->findById($id);
     }
 
-    public function update(UpdateProductTypeRequest $request, ProductType $productType)
+    public function update(UpdateProductTypeRequest $request, int $id)
     {
-        $productType->update($request->validated());
+        $validated = $request->validated();
 
-        return new ProductTypeResource($productType);
+        return $this->productTypeService->update($validated, $id);
     }
 
-    public function destroy(ProductType $productType)
+    public function destroy(int $id)
     {
-        $productType->delete();
+        $this->productTypeService->delete($id);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
