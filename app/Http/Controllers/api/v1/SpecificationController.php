@@ -12,7 +12,7 @@ class SpecificationController extends Controller
 {
     public function __construct(private readonly SpecificationService $specificationService)
     {
-        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+        $this->middleware('auth.role:admin');
     }
 
     public function index()

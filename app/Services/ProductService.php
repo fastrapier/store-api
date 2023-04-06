@@ -6,7 +6,13 @@ use App\Models\Product;
 
 interface ProductService
 {
-    public function store(array $validated);
+    public function findAll();
 
-    public function update(array $validated, Product $product);
+    public function findById(int $id);
+
+    public function create(array $validated);
+
+    public function update(array $validated, int $id);
+
+    public function delete(int $id);
 }

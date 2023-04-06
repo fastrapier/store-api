@@ -6,6 +6,7 @@ namespace App\Services\impl;
 use App\Http\Resources\Category\CategoryCollection;
 use App\Http\Resources\Category\SingleCategoryResource;
 use App\Models\Category;
+use App\Models\Product;
 use App\Services\CategoryService;
 class CategoryServiceImpl implements CategoryService
 {
@@ -16,7 +17,10 @@ class CategoryServiceImpl implements CategoryService
 
     public function findById(int $id): SingleCategoryResource
     {
-        $category = Category::findOrFail($id)->where('id', '=' , $id)->with('products')->first();
+        $category = Category::findOrFail($id);
+        $products = Product::where('category_id', '=', $id)->paginate();
+        $category->products = $products;
+
         return new SingleCategoryResource($category);
     }
 

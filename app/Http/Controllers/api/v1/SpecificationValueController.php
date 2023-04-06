@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecificationValue\StoreSpecificationValueRequest;
 use App\Http\Requests\SpecificationValue\UpdateSpecificationValueRequest;
-use App\Http\Resources\Product\SpecificationValueResource;
+use App\Http\Resources\SpecificationValue\SpecificationValueResource;
 use App\Models\Product;
 use App\Models\Specification;
 use App\Models\SpecificationValue;
@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SpecificationValueController extends Controller
 {
+
     public function index()
     {
         return SpecificationValueResource::collection(SpecificationValue::all());

@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
 
     protected $attributes = [
-        'img' => 'no_image.jpg',
+        'img' => '/some/path/to/image/no_image.jpg',
         'description' => null
     ];
 

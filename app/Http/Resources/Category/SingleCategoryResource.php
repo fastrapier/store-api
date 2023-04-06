@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Category;
 
+use App\Http\Resources\Product\PaginatedProductCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,7 @@ class SingleCategoryResource extends JsonResource
                 'name' => $this->name,
                 'description' => $this->description,
                 'parent_id' => $this->parent_id,
-                'products' => CategoryProductResource::collection($this->products),
+                'products' => new PaginatedProductCollection($this->products),
             ]
         ];
     }
