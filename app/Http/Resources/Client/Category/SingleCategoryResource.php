@@ -18,7 +18,7 @@ class SingleCategoryResource extends JsonResource
                 'name' => $this->name,
                 'description' => $this->description,
                 'parent_id' => $this->parent_id,
-                'products' => $this->products,
+                'products' => new PaginatedProductCollection($this->products),
             ]
         ];
     }

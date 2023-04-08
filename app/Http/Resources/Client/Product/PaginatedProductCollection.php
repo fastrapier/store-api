@@ -12,13 +12,13 @@ class PaginatedProductCollection extends ResourceCollection
 
     public function __construct($resource)
     {
+
         $this->pagination = [
             'total' => $resource->total(), // all models count
             'count' => $resource->count(), // paginated result count
             'per_page' => $resource->perPage(),
             'current_page' => $resource->currentPage(),
             'total_pages' => $resource->lastPage(),
-            'links' => $resource->links()
         ];
 
         $resource = $resource->getCollection();
