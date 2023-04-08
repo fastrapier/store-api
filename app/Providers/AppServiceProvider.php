@@ -2,14 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\CategoryService;
-use App\Services\impl\CategoryServiceImpl;
-use App\Services\impl\ProductServiceImpl;
-use App\Services\impl\ProductTypeServiceImpl;
-use App\Services\impl\SpecificationServiceImpl;
-use App\Services\ProductService;
-use App\Services\ProductTypeService;
-use App\Services\SpecificationService;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,21 +12,34 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ProductService::class, function() {
-            return new ProductServiceImpl();
+        //Admin
+
+        $this->app->bind(\App\Services\Admin\ProductService::class, function () {
+            return new \App\Services\Admin\impl\ProductServiceImpl();
         });
 
-        $this->app->bind(CategoryService::class, function () {
-            return new CategoryServiceImpl();
+        $this->app->bind(\App\Services\Admin\CategoryService::class, function () {
+            return new \App\Services\Admin\impl\CategoryServiceImpl();
         });
 
-        $this->app->bind(ProductTypeService::class, function () {
-            return new ProductTypeServiceImpl();
+        $this->app->bind(\App\Services\Admin\ProductTypeService::class, function () {
+            return new \App\Services\Admin\impl\ProductTypeServiceImpl();
         });
 
-        $this->app->bind(SpecificationService::class, function () {
-            return new SpecificationServiceImpl();
+        $this->app->bind(\App\Services\Admin\SpecificationService::class, function () {
+            return new \App\Services\Admin\impl\SpecificationServiceImpl();
         });
+
+        //Client
+
+        $this->app->bind(\App\Services\Client\CategoryService::class, function () {
+            return new \App\Services\Client\impl\CategoryServiceImpl();
+        });
+
+        $this->app->bind(\App\Services\Client\ProductService::class, function () {
+            return new \App\Services\Client\impl\ProductServiceImpl();
+        });
+
     }
 
     /**
