@@ -28,6 +28,8 @@ Route::group([
     Route::post("signup", [ClientAuthController::class, 'signUp']);
 });
 
+Route::middleware('api')->post('/admin/login', \App\Http\Controllers\api\v1\Admin\AuthController::class);
+
 Route::group([
     'middleware' => 'auth.role:admin',
     'prefix' => 'admin'

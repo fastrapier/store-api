@@ -2,8 +2,8 @@
 
 namespace App\Services\Admin\impl;
 
-use App\Http\Resources\Client\Product\ProductCollection;
-use App\Http\Resources\Client\Product\SingleProductResource;
+use App\Http\Resources\Admin\Product\ProductCollection;
+use App\Http\Resources\Admin\Product\SingleProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
@@ -11,9 +11,7 @@ use App\Services\Admin\ProductService;
 
 class ProductServiceImpl implements ProductService
 {
-
-
-    public function update(array $validated, int $id)
+    public function update(array $validated, int $id): SingleProductResource
     {
         if (isset($validated['category_id'])) {
             Category::findOrFail($validated['category_id']);
@@ -28,34 +26,37 @@ class ProductServiceImpl implements ProductService
 
         $product->fresh();
 
-        return $product;
+        return new SingleProductResource($product);
     }
 
 
-    public function findAll()
+    public function findAll(): ProductCollection
     {
-        return Product::all();
+        return new ProductCollection(Product::all());
     }
 
-    public function findById(int $id)
+    public function findById(int $id): SingleProductResource
     {
-        return Product::where('id', '=', $id)->with('configurator')->with('specifications_values')->firstOrFail();
+        $product = Product::where('id', '=', $id)->with('configurator')->with('specifications_values')->firstOrFail();
+
+        return new SingleProductResource($product);
     }
 
-    public function create(array $validated)
+    public function create(array $validated): SingleProductResource
     {
         Category::findOrFail($validated['category_id']);
 
         ProductType::findOrFail($validated['product_type_id']);
 
-        return Product::create($validated);
+        $product = Product::create($validated);
+
+        return new SingleProductResource($product);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $product = Product::findOrFail($id);
 
         $product->delete();
-
     }
 }
