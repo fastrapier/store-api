@@ -22,6 +22,8 @@ class SingleProductResource extends JsonResource
                 'description' => $this->description,
                 'img' => $this->img,
                 'created_at' => $this->created_at,
+                'category_id' => $this->category_id,
+                'category_name' => $this->category->name
             ]];
     }
 }
