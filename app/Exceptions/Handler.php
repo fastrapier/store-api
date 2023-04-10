@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Arr;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -62,8 +63,7 @@ class Handler extends ExceptionHandler
             ], 500);
         });
 
-        $this->renderable(function (TypeError $e, Request $request)
-        {
+        $this->renderable(function (TypeError $e, Request $request) {
             return response()->json([
                 'success' => false,
                 'message' => "Id in path not found",
@@ -71,13 +71,20 @@ class Handler extends ExceptionHandler
             ], 400);
         });
 
-
-        $this->renderable(function (Exception $e, Request $request) {
+        $this->renderable(function (AuthenticationException $exception, Request $request) {
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage(),
-                'code' => 500
-            ], 500);
+                'message' => $exception->getMessage()
+            ], 401);
         });
+
+//        $this->renderable(function (Exception $e, Request $request) {
+//            return response()->json([
+//                'success' => false,
+//                'exception' => $e::class,
+//                'message' => $e->getMessage(),
+//                'code' => 500
+//            ], 500);
+//        });
     }
 }

@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Services\CategoryService;
 use App\Services\impl\CategoryServiceImpl;
+use App\Services\impl\OrderServiceImpl;
 use App\Services\impl\ProductServiceImpl;
 use App\Services\impl\ProductTypeServiceImpl;
 use App\Services\impl\SpecificationServiceImpl;
+use App\Services\OrderService;
 use App\Services\ProductService;
 use App\Services\ProductTypeService;
 use App\Services\SpecificationService;
@@ -19,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ProductService::class, function() {
+        $this->app->bind(ProductService::class, function () {
             return new ProductServiceImpl();
         });
 
@@ -33,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(SpecificationService::class, function () {
             return new SpecificationServiceImpl();
+        });
+
+        $this->app->bind(OrderService::class, function () {
+            return new OrderServiceImpl();
         });
     }
 
