@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
 use App\Http\Controllers\api\v1\ConfiguratorController;
 use App\Http\Controllers\api\v1\ConfiguratorProductController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\api\v1\ProductController;
 use App\Http\Controllers\api\v1\ProductTypeController;
 use App\Http\Controllers\api\v1\SpecificationController;
 use App\Http\Controllers\api\v1\SpecificationValueController;
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
