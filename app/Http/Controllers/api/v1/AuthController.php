@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
-use App\Http\Requests\User\RegisterUserRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Requests\User\RegisterUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 
