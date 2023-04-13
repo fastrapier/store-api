@@ -25,7 +25,6 @@ class AuthController extends Controller
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json([
-                'success' => false,
                 'error' => 'Provided email address or password is incorrect'
             ], 401);
         }
@@ -45,9 +44,8 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'User successfully registered',
             'user' => new UserResource($user),
+            'access_token' => auth()->login($user)
         ];
-
-        $response['user']["access_token"] = auth()->login($user);
 
         return response()->json($response, 201);
     }
@@ -60,7 +58,6 @@ class AuthController extends Controller
     public function user()
     {
         return response()->json([
-            'success' => true,
             'user' => new UserResource(auth()->user())
         ]);
     }
@@ -75,7 +72,6 @@ class AuthController extends Controller
         auth()->logout();
 
         return response()->json([
-            'success' => true,
             'message' => 'Successfully logged out'
         ]);
     }
@@ -100,12 +96,11 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         $response = [
-            'success' => true,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => new UserResource(auth()->user())
+            'user' => new UserResource(auth()->user()),
+            'access_token' => $token
         ];
-        $response['user']['access_token'] = $token;
         return response()->json($response);
     }
 }
