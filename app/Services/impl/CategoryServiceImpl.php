@@ -3,33 +3,33 @@
 
 namespace App\Services\impl;
 
-use App\Http\Resources\Category\CategoryCollection;
-use App\Http\Resources\Category\SingleCategoryResource;
+use App\Http\Resources\Category\CategoryResource;
 use App\Models\Category;
 use App\Services\CategoryService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 class CategoryServiceImpl implements CategoryService
 {
-    public function findAll(): CategoryCollection
+    public function findAll(): AnonymousResourceCollection
     {
-        return new CategoryCollection(Category::withCount('products')->get());
+        return CategoryResource::collection(Category::withCount('products')->get());
     }
 
-    public function findById(int $id): SingleCategoryResource
+    public function findById(int $id): CategoryResource
     {
-        $category = Category::findOrFail($id);
-        $category->products = $category->products()->paginate();
-        return new SingleCategoryResource($category);
+        $category = Category::with('products')->findOrFail($id);
+        return new CategoryResource($category);
     }
 
-    public function create(array $validated): SingleCategoryResource
+    public function create(array $validated): CategoryResource
     {
         if (!empty($validated['parent_id'])) {
             Category::findOrFail($validated['parent_id']);
         }
-        return new SingleCategoryResource(Category::create($validated));
+        return new CategoryResource(Category::create($validated));
     }
 
-    public function update(array $validated, int $id): SingleCategoryResource
+    public function update(array $validated, int $id): CategoryResource
     {
         $category = Category::findOrFail($id);
 
@@ -37,7 +37,7 @@ class CategoryServiceImpl implements CategoryService
 
         $category->fresh();
 
-        return new SingleCategoryResource($category);
+        return new CategoryResource($category);
     }
 
     public function delete(int $id): void

@@ -14,7 +14,12 @@ class Category extends Model
     protected $fillable = [
         'name',
         'parent_id',
-        'description'
+        'description',
+        'img'
+    ];
+
+    protected $attributes = [
+        'img' => '/some/path/to/image/no_image.jpg'
     ];
 
     public function parent(): BelongsTo

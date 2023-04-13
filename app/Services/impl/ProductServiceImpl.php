@@ -2,19 +2,16 @@
 
 namespace App\Services\impl;
 
-use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
-use App\Http\Resources\Product\SingleProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Services\ProductService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductServiceImpl implements ProductService
 {
-
-
-    public function update(array $validated, int $id): SingleProductResource
+    public function update(array $validated, int $id): ProductResource
     {
         if (isset($validated['category_id'])) {
             Category::findOrFail($validated['category_id']);
@@ -29,34 +26,34 @@ class ProductServiceImpl implements ProductService
 
         $product->fresh();
 
-        return new SingleProductResource($product);
+        return new ProductResource($product);
     }
 
 
-    public function findAll(): ProductCollection
+    public function findAll(): AnonymousResourceCollection
     {
         $data = Product::all();
 
-        return new ProductCollection($data);
+        return ProductResource::collection($data);
     }
 
-    public function findById(int $id): SingleProductResource
+    public function findById(int $id): ProductResource
     {
         $product = Product::where('id', '=', $id)->with('configurator')->with('specifications_values')->firstOrFail();
 
-        return new SingleProductResource($product);
+        return new ProductResource($product);
     }
 
-    public function create(array $validated): SingleProductResource
+    public function create(array $validated): ProductResource
     {
         Category::findOrFail($validated['category_id']);
 
         ProductType::findOrFail($validated['product_type_id']);
 
-        return new SingleProductResource(Product::create($validated));
+        return new ProductResource(Product::create($validated));
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $product = Product::findOrFail($id);
 

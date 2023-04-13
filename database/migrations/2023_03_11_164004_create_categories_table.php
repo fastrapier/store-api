@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('img')->default('no_image.jpg');
             $table->text('description')->nullable();
             $table
                 ->foreignId('parent_id')

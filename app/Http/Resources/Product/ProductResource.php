@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Product;
 
 use App\Http\Resources\Configurator\ConfiguratorResource;
+use App\Http\Resources\SpecificationValue\ProductSpecificationValueResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,6 +21,14 @@ class ProductResource extends JsonResource
             'in_stock' => $this->in_stock,
             'description' => $this->description,
             'img' => $this->img,
+            'created_at' => $this->created_at,
+
+            'configurator' => $this->whenLoaded('configurator'), function () {
+                return new ConfiguratorResource($this->configurator);
+            },
+            'specifications_values' => $this->whenLoaded('specifications_values', function () {
+                return ProductSpecificationValueResource::collection($this->specifications_values);
+            }),
         ];
     }
 }

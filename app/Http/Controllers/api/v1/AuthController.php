@@ -5,12 +5,11 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginUserRequest;
 use App\Http\Requests\User\RegisterUserRequest;
-use App\Http\Resources\User\UserResource;
-use App\Models\User;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    public function __construct(private readonly AuthService $authService)
     {
         $this->middleware('auth:api', ['except' => ['login', 'signUp']]);
     }
@@ -22,33 +21,16 @@ class AuthController extends Controller
      */
     public function login(LoginUserRequest $request)
     {
-        $credentials = $request->validated();
+        $validated = $request->validated();
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json([
-                'error' => 'Provided email address or password is incorrect'
-            ], 401);
-        }
-
-        return $this->respondWithToken($token);
+        return $this->authService->login($validated);
     }
 
     public function signUp(RegisterUserRequest $request)
     {
         $validated = $request->validated();
 
-        $validated['password'] = bcrypt($request->password);
-
-        $user = User::create($validated);
-
-        $response = [
-            'success' => true,
-            'message' => 'User successfully registered',
-            'user' => new UserResource($user),
-            'access_token' => auth()->login($user)
-        ];
-
-        return response()->json($response, 201);
+        return $this->authService->signUp($validated);
     }
 
     /**
@@ -58,9 +40,7 @@ class AuthController extends Controller
      */
     public function user()
     {
-        return response()->json([
-            'user' => new UserResource(auth()->user())
-        ]);
+        return $this->authService->user();
     }
 
     /**
@@ -70,11 +50,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
-
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+        return $this->authService->logout();
     }
 
     /**
@@ -84,24 +60,6 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        $response = [
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => new UserResource(auth()->user()),
-            'access_token' => $token
-        ];
-        return response()->json($response);
+        return $this->authService->refresh();
     }
 }

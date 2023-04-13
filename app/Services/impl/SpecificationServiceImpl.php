@@ -2,35 +2,35 @@
 
 namespace App\Services\impl;
 
-use App\Http\Resources\Specification\SpecificationCollection;
-use App\Http\Resources\Specification\SingleSpecificationResource;
+use App\Http\Resources\Specification\SpecificationResource;
 use App\Models\ProductType;
 use App\Models\Specification;
 use App\Services\SpecificationService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SpecificationServiceImpl implements SpecificationService
 {
-    public function findAll(): SpecificationCollection
+    public function findAll(): AnonymousResourceCollection
     {
-        return new SpecificationCollection(Specification::all());
+        return SpecificationResource::collection(Specification::all());
     }
 
-    public function findById(int $id): SingleSpecificationResource
+    public function findById(int $id): SpecificationResource
     {
         $specification = Specification::findOrFail($id)->where('id', '=', $id)->first();
 
-        return new SingleSpecificationResource($specification);
+        return new SpecificationResource($specification);
     }
 
-    public function create(array $validated): SingleSpecificationResource
+    public function create(array $validated): SpecificationResource
     {
         if (isset($validated['product_type_id'])) {
             ProductType::findOrFail($validated['product_type_id']);
         }
-        return new SingleSpecificationResource(Specification::create($validated));
+        return new SpecificationResource(Specification::create($validated));
     }
 
-    public function update(array $validated, int $id): SingleSpecificationResource
+    public function update(array $validated, int $id): SpecificationResource
     {
         if (isset($validated['product_type_id'])) {
             ProductType::findOrFail($validated['product_type_id']);
@@ -41,10 +41,10 @@ class SpecificationServiceImpl implements SpecificationService
 
         $specification->fresh();
 
-        return new SingleSpecificationResource($specification);
+        return new SpecificationResource($specification);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $category = Specification::findOrFail($id);
 

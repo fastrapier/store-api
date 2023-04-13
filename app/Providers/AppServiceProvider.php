@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\AuthService;
 use App\Services\CategoryService;
+use App\Services\impl\AuthServiceImpl;
 use App\Services\impl\CategoryServiceImpl;
 use App\Services\impl\OrderServiceImpl;
 use App\Services\impl\ProductServiceImpl;
@@ -39,6 +41,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(OrderService::class, function () {
             return new OrderServiceImpl();
+        });
+
+        $this->app->bind(AuthService::class, function () {
+            return new AuthServiceImpl();
         });
     }
 

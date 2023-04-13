@@ -26,7 +26,6 @@ class Product extends Model
         'img',
         'category_id',
         'product_type_id',
-
     ];
 
     public function specifications_values(): HasMany

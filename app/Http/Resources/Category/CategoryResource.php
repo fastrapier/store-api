@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Category;
 
+use App\Http\Resources\Product\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use function PHPUnit\Framework\isNull;
 
 /** @mixin \App\Models\Category */
 class CategoryResource extends JsonResource
@@ -18,7 +18,13 @@ class CategoryResource extends JsonResource
                 'name' => $this->name,
                 'description' => $this->description,
                 'parent_id' => $this->parent_id,
-                'products_count' => $this->whenCounted('products')
+                'img' => $this->img,
+                'products_count' => $this->whenCounted('products'),
+                'products' => $this->whenLoaded('products', function () {
+                    $products = $this->products()->paginate();
+                    $products->data = ProductResource::collection($products);
+                    return $products;
+                })
             ];
     }
 }
