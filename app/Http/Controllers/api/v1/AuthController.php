@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function __construct(private readonly AuthService $authService)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'signUp']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signUp', 'adminLogin']]);
     }
 
     /**
