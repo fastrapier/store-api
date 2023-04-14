@@ -4,7 +4,7 @@ namespace App\Services;
 
 interface AuthService
 {
-    public function login(array $validated, $isAdmin = false);
+    public function login(array $validated);
 
     public function signUp($validated);
 
@@ -14,4 +14,5 @@ interface AuthService
 
     public function refresh();
 
+    public function adminLogin(array $validated);
 }

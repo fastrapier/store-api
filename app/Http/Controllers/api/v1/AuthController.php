@@ -62,4 +62,11 @@ class AuthController extends Controller
     {
         return $this->authService->refresh();
     }
+
+    public function adminLogin(LoginUserRequest $request)
+    {
+        $validated = $request->validated();
+
+        return $this->authService->adminLogin($validated);
+    }
 }

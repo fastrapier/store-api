@@ -25,6 +25,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('user', [AuthController::class, 'user']);
     Route::post("signup", [AuthController::class, 'signUp']);
+    Route::post('admin/login', [AuthController::class, 'adminLogin']);
 });
 Route::apiResources(
     [

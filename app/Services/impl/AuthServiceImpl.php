@@ -17,7 +17,6 @@ class AuthServiceImpl implements AuthService
                 'error' => 'Provided email address or password is incorrect'
             ], 401);
         }
-
         return $this->respondWithToken($token);
     }
 
@@ -67,5 +66,22 @@ class AuthServiceImpl implements AuthService
             'access_token' => $token
         ];
         return response()->json($response);
+    }
+
+    public function adminLogin(array $validated): JsonResponse
+    {
+        if (!$token = auth()->attempt($validated)) {
+            return response()->json([
+                'error' => 'Provided email address or password is incorrect'
+            ], 401);
+        }
+
+        if (auth()->user()->role != 'admin') {
+            return response()->json([
+                'error' => 'This user is not admin'
+            ], 403);
+        }
+
+        return $this->respondWithToken($token);
     }
 }
