@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ProductType;
 
+use App\Http\Resources\Specification\SpecificationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -13,6 +14,9 @@ class ProductTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'specification' => $this->whenLoaded('specifications', function () {
+                return SpecificationResource::collection($this->specifications);
+            })
         ];
     }
 }

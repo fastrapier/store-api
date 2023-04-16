@@ -17,7 +17,7 @@ class ProductTypeServiceImpl implements ProductTypeService
 
     public function findById(int $id): ProductTypeResource
     {
-        $productType = ProductType::findOrFail($id);
+        $productType = ProductType::with('specifications')->findOrFail($id);
 
         return new ProductTypeResource($productType);
     }

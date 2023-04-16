@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductType extends Model
 {
@@ -13,7 +14,7 @@ class ProductType extends Model
         'title'
     ];
 
-    public function specifications()
+    public function specifications(): HasMany
     {
         return $this->hasMany(Specification::class);
     }
