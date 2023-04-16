@@ -25,6 +25,10 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
+        if ($request->hasFile('img')) {
+            $validated['img'] = $request->file('img')->store('images/products');
+        }
+
         return $this->productService->create($validated);
     }
 
@@ -36,6 +40,10 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, int $id)
     {
         $validated = $request->validated();
+
+        if ($request->hasFile('img')) {
+            $validated['img'] = $request->file('img')->store('images/products');
+        }
 
         return $this->productService->update($validated, $id);
     }
