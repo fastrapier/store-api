@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $productService)
     {
-        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show', 'store']]);
     }
 
     public function index()

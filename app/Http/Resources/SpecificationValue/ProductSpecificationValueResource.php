@@ -13,7 +13,7 @@ class ProductSpecificationValueResource extends JsonResource
         return [
             'id' => $this->id,
             'value' => $this->value,
-            'title' => $this->specification->name,
+            'name' => $this->specification->name,
         ];
     }
 }

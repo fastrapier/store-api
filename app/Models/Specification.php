@@ -18,4 +18,9 @@ class Specification extends Model
     {
         return $this->belongsTo(ProductType::class);
     }
+
+    public function specification_values()
+    {
+        return $this->hasMany(SpecificationValue::class);
+    }
 }

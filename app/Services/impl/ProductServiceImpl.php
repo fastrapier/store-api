@@ -44,13 +44,25 @@ class ProductServiceImpl implements ProductService
         return new ProductResource($product);
     }
 
-    public function create(array $validated): ProductResource
+    public function create(array $validated)
     {
         Category::findOrFail($validated['category_id']);
 
         ProductType::findOrFail($validated['product_type_id']);
 
-        return new ProductResource(Product::create($validated));
+        $specification_values = $validated['specification_values'];
+
+        $product = Product::create($validated);
+
+        foreach ($specification_values as $id => $specification_value) {
+            $specification_values[$id]['product_id'] = $product->id;
+        }
+
+        $product->specifications_values()->createMany($specification_values);
+
+        $product->with('specifications_values');
+
+        return new ProductResource($product);
     }
 
     public function delete(int $id): void
