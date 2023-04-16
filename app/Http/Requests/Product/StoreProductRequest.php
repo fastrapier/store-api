@@ -14,9 +14,11 @@ class StoreProductRequest extends FormRequest
             'retail_price' => 'required|numeric',
             'configurator_price' => 'required|numeric',
             'in_stock' => 'required|bool',
-            'description' => 'string|max:500',
+            'img' => 'image|nullable',
+            'description' => 'string|max:500|nullable',
             'category_id' => 'required|integer',
             'product_type_id' => 'required|integer',
+            'specification_values' => 'required|array:specification_id,value',
         ];
     }
 

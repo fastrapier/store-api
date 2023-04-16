@@ -25,6 +25,10 @@ class CategoryController extends Controller
     {
         $validated = $request->validated();
 
+        if ($request->hasFile('img')) {
+            $validated['img'] = $request->file('img')->store('images/categories');
+        }
+
         return $this->categoryService->create($validated);
     }
 
@@ -36,6 +40,10 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, int $id)
     {
         $validated = $request->validated();
+
+        if ($request->hasFile('img')) {
+            $validated['img'] = $request->file('img')->store('images/categories');
+        }
 
         return $this->categoryService->update($validated, $id);
     }

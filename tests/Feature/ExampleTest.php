@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -15,5 +16,23 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+    }
+
+    public function test_category_image_upload(): void
+    {
+        $file = UploadedFile::fake()->image('test.jpg');
+
+
+        $response = $this->json("POST", 'http://localhost:8000/api/v1/categories', [
+            'img' => $file,
+            'name' => 'test'
+        ], [
+            'Accept: application/json',
+            'Content-Type: application/json'
+        ]);
+
+        $json = json_decode($response->getContent(), true);
+
+        self::assertNotEmpty($json['data']['img']);
     }
 }

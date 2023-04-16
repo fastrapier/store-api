@@ -1,7 +1,7 @@
 Unless PHPStorm is an official part of the project (e.g. it's mandated by a company, or agreed to by all team members) I would urge you to put its ignore settings into .git/info/exclude instead of .gitignore. The former is local to your copy, the latter should be committed and shared.
 
 gitignore.io suggests this for Laravel:
-
+.phpunit.result.cache
 # Created by https://www.gitignore.io/api/laravel
 
 ### Laravel ###

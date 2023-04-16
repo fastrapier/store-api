@@ -26,6 +26,8 @@ class CategoryServiceImpl implements CategoryService
         if (!empty($validated['parent_id'])) {
             Category::findOrFail($validated['parent_id']);
         }
+
+
         return new CategoryResource(Category::create($validated));
     }
 
