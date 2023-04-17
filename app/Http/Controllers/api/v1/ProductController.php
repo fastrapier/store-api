@@ -7,13 +7,14 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $productService)
     {
-        $this->middleware('auth.role:admin', ['except' => ['index', 'show', 'store']]);
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
     }
 
     public function index()
@@ -26,7 +27,8 @@ class ProductController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('img')) {
-            $validated['img'] = $request->file('img')->store('images/products');
+            $validated['img'] = $request->file('img')->store('public/images/products');
+            $validated['img'] = Storage::url($validated['img']);
         }
 
         return $this->productService->create($validated);

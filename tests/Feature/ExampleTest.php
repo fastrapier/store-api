@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -32,7 +33,14 @@ class ExampleTest extends TestCase
         ]);
 
         $json = json_decode($response->getContent(), true);
-
+        \Log::info($response->content());
         self::assertNotEmpty($json['data']['img']);
+    }
+
+    public function test_storage_link()
+    {
+        $url = Storage::url('images\categories\KD0Z13KjiZxdLDm7MO1rXHqRmm5JFLavWg9kru4L.jpg');
+
+        \Log::info($url);
     }
 }

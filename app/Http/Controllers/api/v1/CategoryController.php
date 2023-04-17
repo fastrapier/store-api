@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Services\CategoryService;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
@@ -26,7 +27,8 @@ class CategoryController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('img')) {
-            $validated['img'] = $request->file('img')->store('images/categories');
+            $validated['img'] = $request->file('img')->store('public/images/categories');
+            $validated['img'] = Storage::url($validated['img']);
         }
 
         return $this->categoryService->create($validated);
