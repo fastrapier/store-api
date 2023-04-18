@@ -46,4 +46,9 @@ class ProductTypeServiceImpl implements ProductTypeService
 
         $productType->delete();
     }
+
+    public function deleteByIds(array $ids): void
+    {
+        ProductType::whereIn('id', $ids)->delete();
+    }
 }

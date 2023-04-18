@@ -72,4 +72,9 @@ class ProductServiceImpl implements ProductService
         $product->delete();
 
     }
+
+    public function deleteByIds(array $ids): void
+    {
+        Product::whereIn('id', $ids)->delete();
+    }
 }

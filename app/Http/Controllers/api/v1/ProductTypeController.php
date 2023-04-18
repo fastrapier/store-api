@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductType\DeleteProductTypeRequest;
 use App\Http\Requests\ProductType\StoreProductTypeRequest;
 use App\Http\Requests\ProductType\UpdateProductTypeRequest;
 use App\Services\ProductTypeService;
@@ -42,6 +43,15 @@ class ProductTypeController extends Controller
     public function destroy(int $id)
     {
         $this->productTypeService->delete($id);
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function destroyByIds(DeleteProductTypeRequest $request)
+    {
+        $validated = $request->validated();
+
+        $this->productTypeService->deleteByIds($validated['ids']);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

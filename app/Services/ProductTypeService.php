@@ -13,4 +13,6 @@ interface ProductTypeService
     public function update(array $validated, int $id);
 
     public function delete(int $id);
+
+    public function deleteByIds(array $ids);
 }

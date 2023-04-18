@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\DeleteCategoryRequest;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Services\CategoryService;
@@ -53,6 +54,15 @@ class CategoryController extends Controller
     public function destroy(int $id)
     {
         $this->categoryService->delete($id);
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function destroyByIds(DeleteCategoryRequest $request)
+    {
+        $validated = $request->validated();
+
+        $this->categoryService->deleteByIds($validated['ids']);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

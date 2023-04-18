@@ -48,4 +48,9 @@ class CategoryServiceImpl implements CategoryService
 
         $category->delete();
     }
+
+    public function deleteByIds(array $ids): void
+    {
+        Category::whereIn('id', $ids)->delete();
+    }
 }

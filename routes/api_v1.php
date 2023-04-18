@@ -28,6 +28,15 @@ Route::group([
     Route::post("signup", [AuthController::class, 'signUp']);
     Route::post('admin/login', [AuthController::class, 'adminLogin']);
 });
+
+
+//Mass delete
+Route::delete('categories', [CategoryController::class, 'destroyByIds']);
+Route::delete('products', [ProductController::class, 'destroyByIds']);
+Route::delete('product_types', [ProductTypeController::class, 'destroyByIds']);
+
+
+
 Route::apiResources(
     [
         'categories' => CategoryController::class,
