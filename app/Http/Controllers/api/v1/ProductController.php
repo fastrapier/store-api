@@ -15,7 +15,7 @@ class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $productService)
     {
-        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show', "update"]]);
     }
 
     public function index()
@@ -45,7 +45,8 @@ class ProductController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('img')) {
-            $validated['img'] = $request->file('img')->store('images/products');
+            $validated['img'] = $request->file('img')->store('public/images/products');
+            $validated['img'] = Storage::url($validated['img']);
         }
 
         return $this->productService->update($validated, $id);

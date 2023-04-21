@@ -20,11 +20,25 @@ class ProductServiceImpl implements ProductService
             ProductType::findOrFail($validated['product_type_id']);
         }
 
-        $product = Product::findOrFail($id);
+        $product = Product::with('specifications_values')->findOrFail($id);
 
-        $product->update($validated);
 
-        $product->fresh();
+        if (!empty($validated['specification_values'])) {
+            $specification_values = $validated['specification_values'];
+
+            foreach ($specification_values as $value) {
+                $product->specifications_values()->where([
+                    ['specification_id', "=", $value['specification_id']],
+                    ['product_id', "=", $product->id]
+                ])->update(['value' => $value['value']]);
+            }
+        }
+        $isUpdated = $product->update($validated);
+
+        if($isUpdated)
+        {
+            $product = Product::with('specifications_values')->findOrFail($id);
+        }
 
         return new ProductResource($product);
     }
@@ -44,7 +58,7 @@ class ProductServiceImpl implements ProductService
         return new ProductResource($product);
     }
 
-    public function create(array $validated)
+    public function create(array $validated): ProductResource
     {
         Category::findOrFail($validated['category_id']);
 

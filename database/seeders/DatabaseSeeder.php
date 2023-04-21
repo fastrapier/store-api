@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Specification;
+use App\Models\SpecificationValue;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
         Product::factory(500)->create();
 
         Specification::factory(50)->create();
+
+        SpecificationValue::factory(50)->create();
     }
 }
