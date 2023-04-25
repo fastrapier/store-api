@@ -6,11 +6,16 @@ use App\Http\Resources\Product\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Services\ConfiguratorService;
 use App\Services\ProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductServiceImpl implements ProductService
 {
+    public function __construct(private readonly ConfiguratorService $configuratorService)
+    {
+    }
+
     public function update(array $validated, int $id): ProductResource
     {
         if (isset($validated['category_id'])) {
@@ -34,6 +39,11 @@ class ProductServiceImpl implements ProductService
             }
         }
         $isUpdated = $product->update($validated);
+
+        if (!empty($validated['configurator']))
+        {
+            $this->configuratorService->update($validated['configurator'], $product->id);
+        }
 
         if($isUpdated)
         {
@@ -74,7 +84,12 @@ class ProductServiceImpl implements ProductService
 
         $product->specifications_values()->createMany($specification_values);
 
-        $product->with('specifications_values');
+        if(!empty($validated['configurator']))
+        {
+            $this->configuratorService->create($validated['configurator'], $product->id);
+        }
+
+        $product->with('specifications_values')->with('configurator');
 
         return new ProductResource($product);
     }

@@ -2,9 +2,6 @@
 
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
-use App\Http\Controllers\api\v1\ConfiguratorController;
-use App\Http\Controllers\api\v1\ConfiguratorProductController;
-use App\Http\Controllers\api\v1\ConfiguratorProductTypeController;
 use App\Http\Controllers\api\v1\OrderController;
 use App\Http\Controllers\api\v1\ProductController;
 use App\Http\Controllers\api\v1\ProductTypeController;
@@ -44,9 +41,6 @@ Route::apiResources(
         'specifications' => SpecificationController::class,
         'products' => ProductController::class,
         'specification_values' => SpecificationValueController::class,
-        'configurators' => ConfiguratorController::class,
-        'configurator_product_types' => ConfiguratorProductTypeController::class,
-        'configurator_products' => ConfiguratorProductController::class,
         'order' => OrderController::class
     ]
 );
