@@ -3,6 +3,7 @@
 namespace App\Services\impl;
 
 use App\Http\Resources\ProductType\ProductTypeResource;
+use App\Models\Product;
 use App\Models\ProductType;
 use App\Services\ProductTypeService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -17,7 +18,7 @@ class ProductTypeServiceImpl implements ProductTypeService
 
     public function findById(int $id): ProductTypeResource
     {
-        $productType = ProductType::with('specifications')->findOrFail($id);
+        $productType = ProductType::with('specifications')->with('products')->findOrFail($id);
 
         return new ProductTypeResource($productType);
     }

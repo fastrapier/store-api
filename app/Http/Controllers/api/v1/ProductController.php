@@ -31,6 +31,10 @@ class ProductController extends Controller
             $validated['img'] = $request->file('img')->store('public/images/products');
             $validated['img'] = Storage::url($validated['img']);
         }
+        else
+        {
+            $validated['img'] = "test.jpg";
+        }
 
         return $this->productService->create($validated);
     }

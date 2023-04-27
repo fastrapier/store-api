@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
+use App\Http\Controllers\api\v1\ConfiguratorController;
+use App\Http\Controllers\api\v1\ConfiguratorProductController;
+use App\Http\Controllers\api\v1\ConfiguratorProductTypeController;
 use App\Http\Controllers\api\v1\OrderController;
 use App\Http\Controllers\api\v1\ProductController;
 use App\Http\Controllers\api\v1\ProductTypeController;
 use App\Http\Controllers\api\v1\SpecificationController;
 use App\Http\Controllers\api\v1\SpecificationValueController;
 use Illuminate\Support\Facades\Route;
-
 
 
 Route::group([
@@ -45,3 +47,6 @@ Route::apiResources(
     ]
 );
 
+Route::apiResource('configurator', ConfiguratorController::class)->only(['show', 'store', 'destroy']);
+Route::apiResource('configuratorProductType', ConfiguratorProductTypeController::class)->only(['show', 'store', 'destroy']);
+Route::apiResource('configuratorProduct', ConfiguratorProductController::class)->only('store', 'destroy');

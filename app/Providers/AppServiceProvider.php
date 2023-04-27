@@ -4,6 +4,11 @@ namespace App\Providers;
 
 use App\Services\AuthService;
 use App\Services\CategoryService;
+use App\Services\ConfiguratorProductService;
+use App\Services\impl\ConfiguratorProductServiceImpl;
+use App\Services\ConfiguratorProductTypeService;
+use App\Services\impl\ConfiguratorProductTypeServiceImpl;
+use App\Services\ConfiguratorService;
 use App\Services\impl\ConfiguratorServiceImpl;
 use App\Services\impl\AuthServiceImpl;
 use App\Services\impl\CategoryServiceImpl;
@@ -25,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ProductService::class, function () {
-            return new ProductServiceImpl(new ConfiguratorServiceImpl());
+            return new ProductServiceImpl();
         });
 
         $this->app->bind(CategoryService::class, function () {
@@ -46,6 +51,18 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(AuthService::class, function () {
             return new AuthServiceImpl();
+        });
+
+        $this->app->bind(ConfiguratorService::class, function () {
+            return new ConfiguratorServiceImpl();
+        });
+
+        $this->app->bind(ConfiguratorProductTypeService::class, function () {
+            return new ConfiguratorProductTypeServiceImpl();
+        });
+
+        $this->app->bind(ConfiguratorProductService::class, function () {
+            return new ConfiguratorProductServiceImpl();
         });
     }
 

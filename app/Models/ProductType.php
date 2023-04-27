@@ -18,4 +18,9 @@ class ProductType extends Model
     {
         return $this->hasMany(Specification::class);
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

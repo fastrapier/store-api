@@ -2,11 +2,9 @@
 
 namespace App\Services;
 
-interface ConfiguratorService
+interface ConfiguratorProductService
 {
     public function create(array $data);
-
-    public function findById(int $id);
 
     public function delete(int $id);
 }

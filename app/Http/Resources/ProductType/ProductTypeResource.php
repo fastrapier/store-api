@@ -16,6 +16,9 @@ class ProductTypeResource extends JsonResource
             'title' => $this->title,
             'specification' => $this->whenLoaded('specifications', function () {
                 return SpecificationResource::collection($this->specifications);
+            }),
+            'products' => $this->whenLoaded('products', function () {
+                return ProductResource::collection($this->products);
             })
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface ConfiguratorService
+interface ConfiguratorProductTypeService
 {
     public function create(array $data);
 
