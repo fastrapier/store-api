@@ -9,6 +9,7 @@ use App\Http\Requests\Product\UpdateProductRequest;
 
 use App\Services\ProductService;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -27,12 +28,12 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
+        $validated['specification_values'] = json_decode($validated['specification_values']);
+
         if ($request->hasFile('img')) {
             $validated['img'] = $request->file('img')->store('public/images/products');
             $validated['img'] = Storage::url($validated['img']);
-        }
-        else
-        {
+        } else {
             $validated['img'] = "test.jpg";
         }
 

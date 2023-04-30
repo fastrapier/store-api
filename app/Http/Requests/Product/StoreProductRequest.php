@@ -18,7 +18,9 @@ class StoreProductRequest extends FormRequest
             'description' => 'string|max:500|nullable',
             'category_id' => 'required|integer',
             'product_type_id' => 'required|integer',
-            'specification_values.*' => 'required|array|required_array_keys:specification_id,value',
+            'specification_values' => "required|json|",
+//            'specification_values' => 'required|array',
+//            'specification_values.*' => 'required|array|required_array_keys:specification_id,value',
             'configurator' => 'nullable|array',
             'configurator.*' => 'int|exists:product_types,id',
             'configurator.*.*' => 'int|exists:products,id'
