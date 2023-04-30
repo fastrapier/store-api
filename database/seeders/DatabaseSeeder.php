@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Specification;
 use App\Models\SpecificationValue;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,5 +25,14 @@ class DatabaseSeeder extends Seeder
         Specification::factory(50)->create();
 
         SpecificationValue::factory(50)->create();
+
+        User::create([
+            'name' => 'admin',
+            'password' => bcrypt('admin'),
+            'email' => 'admin@mail.ru',
+            'phone' => '+79656287261',
+            'role' => 'admin',
+            'last_name' => 'admin'
+        ]);
     }
 }
