@@ -13,7 +13,7 @@ class ConfiguratorController extends Controller
 
     public function __construct(private readonly ConfiguratorService $configuratorService)
     {
-        $this->middleware('auth.role:admin');
+        $this->middleware('auth.role:admin', ['except' => ['index', 'update']]);
     }
 
 

@@ -10,7 +10,7 @@ class ConfiguratorProductTypeController extends Controller
 {
     public function __construct(private readonly ConfiguratorProductTypeService $configuratorProductTypeService)
     {
-        $this->middleware('auth.role:admin');
+        $this->middleware('auth.role:admin', ['except' => ['index', 'update']]);
     }
 
 
