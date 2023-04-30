@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['specification_values'] = json_decode($validated['specification_values']);
+        $validated['specification_values'] = json_decode($validated['specification_values'], true);
 
         if ($request->hasFile('img')) {
             $validated['img'] = $request->file('img')->store('public/images/products');
