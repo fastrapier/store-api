@@ -10,7 +10,7 @@ class ConfiguratorProductTypeRequest extends FormRequest
     {
         return [
             'configurator_id' => ['required', 'integer'],
-            'product_type_id' => ['required', 'exists:product_types'],
+            'product_type_id' => ['required', 'integer'],
         ];
     }
 

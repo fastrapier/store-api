@@ -11,6 +11,11 @@ class ConfiguratorProductType extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'configurator_id',
+        'product_type_id'
+    ];
+
     public function product_type()
     {
         return $this->belongsTo(ProductType::class);
