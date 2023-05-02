@@ -17,7 +17,7 @@ class UpdateProductRequest extends FormRequest
             'description' => 'string|max:500',
             'category_id' => 'integer',
             'product_type_id' => 'integer',
-            'specification_values.*' => 'nullable|array|required_array_keys:specification_id,value',
+            'specification_values' => 'nullable|string',
         ];
     }
 

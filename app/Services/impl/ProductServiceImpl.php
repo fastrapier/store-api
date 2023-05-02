@@ -6,6 +6,7 @@ use App\Http\Resources\Product\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\SpecificationValue;
 use App\Services\ProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -20,25 +21,45 @@ class ProductServiceImpl implements ProductService
             ProductType::findOrFail($validated['product_type_id']);
         }
 
-        $product = Product::with('specifications_values')->findOrFail($id);
-
+        $product = Product::with('specification_values')->findOrFail($id);
 
         if (!empty($validated['specification_values'])) {
             $specification_values = $validated['specification_values'];
 
-            foreach ($specification_values as $value) {
-                $product->specifications_values()->where([
-                    ['specification_id', "=", $value['specification_id']],
-                    ['product_id', "=", $product->id]
-                ])->update(['value' => $value['value']]);
+            foreach ($specification_values as $valId => $valueFromRequest)
+            {
+                if(!empty($valueFromRequest['id']))
+                {
+                    foreach ($product->specification_values as $specifications_value)
+                    {
+                        if($specifications_value->id != $valueFromRequest['id'])
+                        {
+                            continue;
+                        }
+
+                        if($specifications_value->value != $valueFromRequest['value'])
+                        {
+                            $specifications_value->update(['value' => $valueFromRequest['value']]);
+                        }
+                        break;
+                    }
+                }
+                else
+                {
+                    SpecificationValue::create([
+                        'specification_id' => $valueFromRequest['specification_id'],
+                        'product_id' => $product->id,
+                        'value' => $valueFromRequest['value']
+                    ]);
+                }
             }
         }
-        $isUpdated = $product->update($validated);
+        unset($validated['specification_values']);
 
-        if($isUpdated)
-        {
-            $product = Product::with('specifications_values')->findOrFail($id);
-        }
+        $product->update($validated);
+
+        $product = Product::with('specification_values')->with('configurator')->findOrFail($id);
+
 
         return new ProductResource($product);
     }
@@ -53,7 +74,7 @@ class ProductServiceImpl implements ProductService
 
     public function findById(int $id): ProductResource
     {
-        $product = Product::where('id', '=', $id)->with('configurator')->with('specifications_values')->firstOrFail();
+        $product = Product::where('id', '=', $id)->with('configurator')->with('specification_values')->firstOrFail();
 
         return new ProductResource($product);
     }
@@ -72,9 +93,9 @@ class ProductServiceImpl implements ProductService
             $specification_values[$id]['product_id'] = $product->id;
         }
 
-        $product->specifications_values()->createMany($specification_values);
+        $product->specification_values()->createMany($specification_values);
 
-        $product = $product->with('specifications_values')->findOrFail($product->id);
+        $product = $product->with('specification_values')->with('configurator')->findOrFail($product->id);
 
         return new ProductResource($product);
     }

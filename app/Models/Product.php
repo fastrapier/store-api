@@ -28,7 +28,7 @@ class Product extends Model
         'product_type_id',
     ];
 
-    public function specifications_values(): HasMany
+    public function specification_values(): HasMany
     {
         return $this->hasMany(SpecificationValue::class);
     }
