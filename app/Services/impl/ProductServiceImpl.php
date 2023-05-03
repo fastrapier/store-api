@@ -67,7 +67,7 @@ class ProductServiceImpl implements ProductService
 
     public function findAll(): AnonymousResourceCollection
     {
-        $data = Product::all();
+        $data = Product::with('configurator')->get();
 
         return ProductResource::collection($data);
     }
