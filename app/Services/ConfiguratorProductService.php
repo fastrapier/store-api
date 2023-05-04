@@ -6,5 +6,5 @@ interface ConfiguratorProductService
 {
     public function create(array $data);
 
-    public function delete(int $id);
+    public function delete(array $validated);
 }

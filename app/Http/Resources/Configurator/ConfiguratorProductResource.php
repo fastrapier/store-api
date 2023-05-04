@@ -12,6 +12,7 @@ class ConfiguratorProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'base_product_id' => $this->product->id,
             'title' => $this->product->title,
             'price' => $this->product->configurator_price,
         ];

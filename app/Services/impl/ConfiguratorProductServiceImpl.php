@@ -3,7 +3,7 @@
 namespace App\Services\impl;
 
 use App\Http\Resources\Configurator\ConfiguratorProductResource;
-use App\Http\Resources\Configurator\ConfiguratorProductTypeResource;
+use App\Models\Configurator;
 use App\Models\ConfiguratorProduct;
 use App\Services\ConfiguratorProductService;
 
@@ -17,10 +17,14 @@ class ConfiguratorProductServiceImpl implements ConfiguratorProductService
         return new ConfiguratorProductResource($configurator_product);
     }
 
-    public function delete(int $id): void
+    public function delete($validated): void
     {
-        $product = ConfiguratorProduct::findOrFail($id);
 
+        $product = ConfiguratorProduct::where(
+            [
+                ['configurator_product_type_id', "=", $validated['configurator_product_type_id']],
+                ['product_id', "=", $validated['product_id']]
+            ]);
         $product->delete();
     }
 }

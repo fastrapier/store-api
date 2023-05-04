@@ -49,4 +49,7 @@ Route::apiResources(
 
 Route::apiResource('configurator', ConfiguratorController::class)->only(['show', 'store', 'destroy']);
 Route::apiResource('configuratorProductType', ConfiguratorProductTypeController::class)->only(['show', 'store', 'destroy']);
-Route::apiResource('configuratorProduct', ConfiguratorProductController::class)->only('store', 'destroy');
+
+Route::post("configuratorProduct", [ConfiguratorProductController::class, 'store']);
+Route::delete("configuratorProduct", [ConfiguratorProductController::class, 'destroy']);
+//Route::apiResource('configuratorProduct', ConfiguratorProductController::class)->only('store');

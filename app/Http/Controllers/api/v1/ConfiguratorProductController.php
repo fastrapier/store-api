@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ConfiguratorProduct\DeleteConfiguratorProductRequest;
 use App\Http\Requests\ConfiguratorProduct\StoreConfiguratorProductRequest;
 use App\Services\ConfiguratorProductService;
 
@@ -10,7 +11,7 @@ class ConfiguratorProductController extends Controller
 {
     public function __construct(private readonly ConfiguratorProductService $configuratorProductService)
     {
-        $this->middleware('auth.role:admin', ['except' => ['index', 'update']]);
+        $this->middleware('auth.role:admin');
     }
 
     public function store(StoreConfiguratorProductRequest $request)
@@ -20,9 +21,11 @@ class ConfiguratorProductController extends Controller
         return $this->configuratorProductService->create($validated);
     }
 
-    public function destroy(int $id)
+    public function destroy(DeleteConfiguratorProductRequest $request)
     {
-        $this->configuratorProductService->delete($id);
+        $validated = $request->validated();
+
+        $this->configuratorProductService->delete($validated);
 
         return response()->json(null, 204);
     }
