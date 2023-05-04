@@ -11,7 +11,7 @@ class ConfiguratorProductResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id' => $this->product->id,
+            'id' => $this->id,
             'title' => $this->product->title,
             'price' => $this->product->configurator_price,
         ];
