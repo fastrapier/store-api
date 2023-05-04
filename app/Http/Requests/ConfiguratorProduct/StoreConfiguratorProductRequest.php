@@ -10,8 +10,7 @@ class StoreConfiguratorProductRequest extends FormRequest
     {
         return [
             'configurator_product_type_id' => 'required|integer',
-            'product_ids' => 'required|array',
-            'product_ids.*' => 'int|exists:products,id'
+            'product_id' => 'required|int|exists:products,id',
         ];
     }
 
