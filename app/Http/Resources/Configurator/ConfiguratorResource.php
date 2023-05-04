@@ -12,7 +12,13 @@ class ConfiguratorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_types' => ConfiguratorProductTypeResource::collection($this->configuratorProductType)
+            'product_types' => $this->configuratorProductType->map(function ($configurator_prod) {
+                return [
+                    'id' => $configurator_prod->id,
+                    'name' => $configurator_prod->product_type->title,
+                    'products' => ConfiguratorProductResource::collection($configurator_prod->products)
+                ];
+            }),
         ];
     }
 }

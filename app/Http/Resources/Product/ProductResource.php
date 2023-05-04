@@ -24,12 +24,8 @@ class ProductResource extends JsonResource
             'created_at' => $this->created_at,
             'product_type_id' => $this->product_type_id,
             'category_id' => $this->category_id,
-            'configurator' => $this->whenLoaded('configurator'), function () {
-                return new ConfiguratorResource($this->configurator);
-            },
-            'specification_values' => $this->whenLoaded('specification_values', function () {
-                return ProductSpecificationValueResource::collection($this->specification_values);
-            }),
+            'configurator' => new ConfiguratorResource($this->configurator),
+            'specification_values' => ProductSpecificationValueResource::collection($this->specification_values),
         ];
     }
 }

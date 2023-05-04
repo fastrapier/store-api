@@ -60,16 +60,15 @@ class ProductServiceImpl implements ProductService
 
         $product = Product::with('specification_values')->with('configurator')->findOrFail($id);
 
-
         return new ProductResource($product);
     }
 
 
     public function findAll(): AnonymousResourceCollection
     {
-        $data = Product::with('configurator')->get();
+        $product = Product::with('configurator')->get();
 
-        return ProductResource::collection($data);
+        return ProductResource::collection($product);
     }
 
     public function findById(int $id): ProductResource

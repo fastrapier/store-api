@@ -4,7 +4,6 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfiguratorProduct\StoreConfiguratorProductRequest;
-use App\Models\ConfiguratorProduct;
 use App\Services\ConfiguratorProductService;
 
 class ConfiguratorProductController extends Controller
