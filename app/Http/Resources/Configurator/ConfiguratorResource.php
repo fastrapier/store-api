@@ -16,6 +16,7 @@ class ConfiguratorResource extends JsonResource
                 return [
                     'id' => $configurator_prod->id,
                     'name' => $configurator_prod->product_type->title,
+                    'base_product_type_id' => $configurator_prod->product_type->id,
                     'products' => ConfiguratorProductResource::collection($configurator_prod->products)
                 ];
             }),
