@@ -12,6 +12,7 @@ class ConfiguratorProductTypeResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'base_product_type_id' => $this->product_type->id,
             'title' => $this->product_type->title,
             'products' => ConfiguratorProductResource::collection($this->products)
         ];
