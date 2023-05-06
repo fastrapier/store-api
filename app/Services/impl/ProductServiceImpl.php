@@ -36,7 +36,7 @@ class ProductServiceImpl implements ProductService
         }
 
         if ($isUpdated) {
-            $product = Product::with('specifications_values')->findOrFail($id);
+            $product = Product::with('specification_values')->findOrFail($id);
         }
 
         return new ProductResource($product);
