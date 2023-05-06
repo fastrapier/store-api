@@ -26,8 +26,8 @@ class ProductServiceImpl implements ProductService
 
         if (!empty($validated['specification_values'])) {
             $isUpdated = true;
-            $specification_values = json_decode($validated['specification_values'], true);
-            foreach ($specification_values as $key => $value) {
+
+            foreach ($validated['specification_values'] as $key => $value) {
                 $product->specifications_values()->where([
                     ['specification_id', "=", $value['specification_id']],
                     ['product_id', "=", $product->id]
