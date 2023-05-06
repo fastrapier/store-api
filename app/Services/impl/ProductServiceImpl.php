@@ -28,7 +28,7 @@ class ProductServiceImpl implements ProductService
             $isUpdated = true;
 
             foreach ($validated['specification_values'] as $key => $value) {
-                $product->specifications_values()->where([
+                $product->specification_values()->where([
                     ['specification_id', "=", $value['specification_id']],
                     ['product_id', "=", $product->id]
                 ])->updateOrCreate(['specification_id' => $value['specification_id'], 'value' => $value['value'], 'product_id' => $product->id]);
