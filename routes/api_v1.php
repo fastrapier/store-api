@@ -41,11 +41,13 @@ Route::apiResources(
         'categories' => CategoryController::class,
         'product_types' => ProductTypeController::class,
         'specifications' => SpecificationController::class,
-        'products' => ProductController::class,
         'specification_values' => SpecificationValueController::class,
         'order' => OrderController::class
     ]
 );
+
+Route::post('products/update/{id}', [ProductController::class, 'update']);
+Route::apiResource('products', ProductController::class)->except('update');
 
 Route::apiResource('configurator', ConfiguratorController::class)->only(['show', 'store', 'destroy']);
 Route::apiResource('configuratorProductType', ConfiguratorProductTypeController::class)->only(['show', 'store', 'destroy']);
