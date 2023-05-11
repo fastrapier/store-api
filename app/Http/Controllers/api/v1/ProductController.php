@@ -49,11 +49,6 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
-        \Log::info(print_r($request->all(), true));
-        $specification_vals = json_decode($request->get('specification_values'),true);
-        \Log::info(print_r($request->get("specification_values"), true));
-        \Log::info(print_r($specification_vals, true));
-
         $validated['specification_values'] = json_decode($validated['specification_values'], true);
 
         if ($request->hasFile('img')) {
