@@ -6,7 +6,6 @@ use App\Http\Resources\Product\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
-use App\Models\SpecificationValue;
 use App\Services\ProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -23,42 +22,22 @@ class ProductServiceImpl implements ProductService
 
         $product = Product::with('specification_values')->findOrFail($id);
 
+        $isUpdated = $product->update($validated);
+
         if (!empty($validated['specification_values'])) {
-            $specification_values = $validated['specification_values'];
+            $isUpdated = true;
 
-            foreach ($specification_values as $valId => $valueFromRequest)
-            {
-                if(!empty($valueFromRequest['id']))
-                {
-                    foreach ($product->specification_values as $specifications_value)
-                    {
-                        if($specifications_value->id != $valueFromRequest['id'])
-                        {
-                            continue;
-                        }
-
-                        if($specifications_value->value != $valueFromRequest['value'])
-                        {
-                            $specifications_value->update(['value' => $valueFromRequest['value']]);
-                        }
-                        break;
-                    }
-                }
-                else
-                {
-                    SpecificationValue::create([
-                        'specification_id' => $valueFromRequest['specification_id'],
-                        'product_id' => $product->id,
-                        'value' => $valueFromRequest['value']
-                    ]);
-                }
+            foreach ($validated['specification_values'] as $key => $value) {
+                $product->specification_values()->where([
+                    ['specification_id', "=", $value['specification_id']],
+                    ['product_id', "=", $product->id]
+                ])->updateOrCreate(['specification_id' => $value['specification_id'], 'value' => $value['value'], 'product_id' => $product->id]);
             }
         }
-        unset($validated['specification_values']);
 
-        $product->update($validated);
-
-        $product = Product::with('specification_values')->with('configurator')->findOrFail($id);
+        if ($isUpdated) {
+            $product = Product::with('specification_values')->findOrFail($id);
+        }
 
         return new ProductResource($product);
     }
