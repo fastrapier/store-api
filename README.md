@@ -1,13 +1,12 @@
 # Запуск проекта
-[comment]: <> (Добавить action чтобы все это запускалось)
 - Установить зависимости
   - `composer install`
   - `npm install`
 - Создать файл `.env`, делаете копию `.env.example`
-- Создать ключ приложения `php artisan key:generate`
-- Запускаете миграции, `php artisan migrate:fresh --seed`, если спросит в консоли создать ли базу данных, то напишите `yes`
-- Запустить сервер `php artisan serve`
-
+- `php artisan key:generate`
+- `php artisan jwt:secret`
+- `php artisan storage:link`
+- `docker-compose up -d`
 # Postman export    
 
 Чтобы получить файл для импорта в коллекции Postman нужно запустить команду:
