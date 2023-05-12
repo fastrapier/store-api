@@ -31,6 +31,10 @@ class CategoryController extends Controller
             $validated['img'] = $request->file('img')->store('public/images/categories');
             $validated['img'] = Storage::url($validated['img']);
         }
+        else
+        {
+            $validated['img'] = 'public/images/no_image.jpg';
+        }
 
         return $this->categoryService->create($validated);
     }
