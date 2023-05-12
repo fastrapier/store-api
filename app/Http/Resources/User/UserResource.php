@@ -16,6 +16,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'name' => $this->name,
+            'role' => $this->role,
             'last_name' => $this->last_name,
         ];
     }
