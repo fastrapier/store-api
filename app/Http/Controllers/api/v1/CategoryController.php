@@ -31,6 +31,10 @@ class CategoryController extends Controller
             $validated['img'] = $request->file('img')->store('public/images/categories');
             $validated['img'] = Storage::url($validated['img']);
         }
+        else
+        {
+            $validated['img'] = 'public/images/no_image.jpg';
+        }
 
         return $this->categoryService->create($validated);
     }
@@ -46,7 +50,8 @@ class CategoryController extends Controller
 
         if ($request->hasFile('img')) {
             $validated['img'] = $request->file('img')->store('public/images/categories');
-        }
+            $validated['img'] = Storage::url($validated['img']);
+            }
 
         return $this->categoryService->update($validated, $id);
     }

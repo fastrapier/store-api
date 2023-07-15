@@ -49,7 +49,7 @@ class AuthServiceImpl implements AuthService
 
         return response()->json([
             'message' => 'Successfully logged out'
-        ]);
+        ])->withCookie(cookie('logged_in', false));;
     }
 
     public function refresh(): JsonResponse
@@ -82,6 +82,6 @@ class AuthServiceImpl implements AuthService
             ], 403);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token)->withCookie(cookie('logged_in', true,  auth()->factory()->getTTL() * 60, null, null, false, false));
     }
 }
