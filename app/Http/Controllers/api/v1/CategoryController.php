@@ -45,7 +45,7 @@ class CategoryController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('img')) {
-            $validated['img'] = $request->file('img')->store('images/categories');
+            $validated['img'] = $request->file('img')->store('public/images/categories');
         }
 
         return $this->categoryService->update($validated, $id);

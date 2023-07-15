@@ -20,6 +20,8 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('categories')
                 ->onDelete('set null');
+            $table->boolean('isActive');
+            $table->integer('position');
             $table->timestamps();
         });
     }

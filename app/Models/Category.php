@@ -15,11 +15,15 @@ class Category extends Model
         'name',
         'parent_id',
         'description',
-        'img'
+        'img',
+        'isActive',
+        'position'
     ];
 
     protected $attributes = [
-        'img' => '/some/path/to/image/no_image.jpg'
+        'img' => '/some/path/to/image/no_image.jpg',
+        'position' => 999,
+        'isActive' => false
     ];
 
     public function parent(): BelongsTo
