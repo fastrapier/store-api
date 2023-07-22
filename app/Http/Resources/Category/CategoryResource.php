@@ -18,6 +18,8 @@ class CategoryResource extends JsonResource
                 'name' => $this->name,
                 'parent_id' => $this->parent_id,
                 'img' => $this->img,
+                'isActive' => $this->isActive,
+                'position' => $this->position,
                 'products_count' => $this->whenCounted('products'),
                 'products' => $this->whenLoaded('products', function () {
                     $products = $this->products()->paginate();

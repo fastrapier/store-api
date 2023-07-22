@@ -24,6 +24,8 @@ class CategoryFactory extends Factory
                 Category::factory(),
                 null
             ]),
+            'isActive' => true,
+            'position' => rand(1, 100)
         ];
     }
 }
