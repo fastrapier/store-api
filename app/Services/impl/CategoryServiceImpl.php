@@ -34,10 +34,8 @@ class CategoryServiceImpl implements CategoryService
         return new CategoryResource(Category::create($validated));
     }
 
-    public function update(array $validated, int $id): CategoryResource
+    public function update(array $validated, Category $category): CategoryResource
     {
-        $category = Category::findOrFail($id);
-
         $category->update($validated);
 
         $category->fresh();

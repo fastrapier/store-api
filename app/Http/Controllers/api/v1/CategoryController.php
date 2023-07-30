@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\DeleteCategoryRequest;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +45,7 @@ class CategoryController extends Controller
         return $this->categoryService->findById($id);
     }
 
-    public function update(UpdateCategoryRequest $request, int $id)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $validated = $request->validated();
 
@@ -53,7 +54,7 @@ class CategoryController extends Controller
             $validated['img'] = Storage::url($validated['img']);
             }
 
-        return $this->categoryService->update($validated, $id);
+        return $this->categoryService->update($validated, $category);
     }
 
     public function destroy(int $id)

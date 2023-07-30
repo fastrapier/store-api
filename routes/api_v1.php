@@ -11,7 +11,7 @@ use App\Http\Controllers\api\v1\ProductTypeController;
 use App\Http\Controllers\api\v1\SpecificationController;
 use App\Http\Controllers\api\v1\SpecificationValueController;
 use Illuminate\Support\Facades\Route;
-
+use \Illuminate\Http\Request;
 
 Route::group([
 
@@ -19,7 +19,6 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
@@ -28,30 +27,34 @@ Route::group([
     Route::post('admin/login', [AuthController::class, 'adminLogin']);
 });
 
+Route::prefix('category')->controller(CategoryController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{category}', 'show');
+    Route::match(['put', 'patch'], '/{category}', 'update');
+    Route::delete('/{category}', 'destroy');
+});
 
-//Mass delete
-Route::delete('categories', [CategoryController::class, 'destroyByIds']);
-Route::delete('products', [ProductController::class, 'destroyByIds']);
-Route::delete('product_types', [ProductTypeController::class, 'destroyByIds']);
+Route::prefix('productType')->controller(ProductTypeController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{productType}', 'show');
+    Route::match(['put', 'patch'], '/{productType}', 'update');
+    Route::delete('/{productType}', 'destroy');
+});
 
+Route::prefix("specification")->controller(SpecificationController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{specification}', 'show');
+    Route::match(['put', 'patch'], '/{specification}', 'update');
+    Route::delete('/{specification}', 'destroy');
+});
 
-
-Route::apiResources(
-    [
-        'categories' => CategoryController::class,
-        'product_types' => ProductTypeController::class,
-        'specifications' => SpecificationController::class,
-        'specification_values' => SpecificationValueController::class,
-        'order' => OrderController::class
-    ]
-);
-
-Route::post('products/update/{id}', [ProductController::class, 'update']);
-Route::apiResource('products', ProductController::class)->except('update');
-
-Route::apiResource('configurator', ConfiguratorController::class)->only(['show', 'store', 'destroy']);
-Route::apiResource('configuratorProductType', ConfiguratorProductTypeController::class)->only(['show', 'store', 'destroy']);
-
-Route::post("configuratorProduct", [ConfiguratorProductController::class, 'store']);
-Route::delete("configuratorProduct", [ConfiguratorProductController::class, 'destroy']);
-//Route::apiResource('configuratorProduct', ConfiguratorProductController::class)->only('store');
+Route::prefix('specificationValue')->controller(SpecificationValueController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{specificationValue}', 'show');
+    Route::match(['put', 'patch'], '/{specificationValue}', 'update');
+    Route::delete('/{specificationValue}', 'destroy');
+});

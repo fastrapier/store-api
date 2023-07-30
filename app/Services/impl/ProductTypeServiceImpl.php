@@ -3,7 +3,6 @@
 namespace App\Services\impl;
 
 use App\Http\Resources\ProductType\ProductTypeResource;
-use App\Models\Product;
 use App\Models\ProductType;
 use App\Services\ProductTypeService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -16,11 +15,9 @@ class ProductTypeServiceImpl implements ProductTypeService
         return ProductTypeResource::collection(ProductType::all());
     }
 
-    public function findById(int $id): ProductTypeResource
+    public function findById(ProductType $productType): ProductTypeResource
     {
-        $productType = ProductType::with('specifications')->with('products')->findOrFail($id);
-
-        return new ProductTypeResource($productType);
+        return new ProductTypeResource($productType->with('specifications')->with('products'));
     }
 
     public function create(array $validated): ProductTypeResource
@@ -30,10 +27,8 @@ class ProductTypeServiceImpl implements ProductTypeService
         return new ProductTypeResource($created_product_type);
     }
 
-    public function update(array $validated, int $id): ProductTypeResource
+    public function update(array $validated, ProductType $productType): ProductTypeResource
     {
-        $productType = ProductType::findOrFail($id);
-
         $productType->update($validated);
 
         $productType->fresh();
@@ -41,10 +36,8 @@ class ProductTypeServiceImpl implements ProductTypeService
         return new ProductTypeResource($productType);
     }
 
-    public function delete(int $id): void
+    public function delete(ProductType $productType): void
     {
-        $productType = ProductType::findOrFail($id);
-
         $productType->delete();
     }
 

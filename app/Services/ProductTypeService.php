@@ -2,17 +2,19 @@
 
 namespace App\Services;
 
+use App\Models\ProductType;
+
 interface ProductTypeService
 {
     public function findAll();
 
-    public function findById(int $id);
+    public function findById(ProductType $productType);
 
     public function create(array $validated);
 
-    public function update(array $validated, int $id);
+    public function update(array $validated, ProductType $productType);
 
-    public function delete(int $id);
+    public function delete(ProductType $productType);
 
     public function deleteByIds(array $ids);
 }

@@ -11,7 +11,9 @@ class Specification extends Model
 
     protected $fillable = [
         'name',
-        'product_type_id'
+        'product_type_id',
+        'is_active',
+        'position'
     ];
 
     public function productType()

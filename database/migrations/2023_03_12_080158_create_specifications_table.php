@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('specifications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('position')->default(999);
+            $table->boolean('is_active')->default(false);
             $table
                 ->foreignId('product_type_id')
                 ->constrained('product_types')

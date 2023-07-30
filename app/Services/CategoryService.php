@@ -12,7 +12,7 @@ interface CategoryService
 
     public function create(array $validated);
 
-    public function update(array $validated, int $id);
+    public function update(array $validated, Category $category);
 
     public function delete(int $id);
 

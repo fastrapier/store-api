@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductType\DeleteProductTypeRequest;
 use App\Http\Requests\ProductType\StoreProductTypeRequest;
 use App\Http\Requests\ProductType\UpdateProductTypeRequest;
+use App\Models\ProductType;
 use App\Services\ProductTypeService;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,21 +29,21 @@ class ProductTypeController extends Controller
         return $this->productTypeService->create($validated);
     }
 
-    public function show(int $id)
+    public function show(ProductType $productType)
     {
-        return $this->productTypeService->findById($id);
+        return $this->productTypeService->findById($productType);
     }
 
-    public function update(UpdateProductTypeRequest $request, int $id)
+    public function update(UpdateProductTypeRequest $request, ProductType $productType)
     {
         $validated = $request->validated();
 
-        return $this->productTypeService->update($validated, $id);
+        return $this->productTypeService->update($validated, $productType);
     }
 
-    public function destroy(int $id)
+    public function destroy(ProductType $productType)
     {
-        $this->productTypeService->delete($id);
+        $this->productTypeService->delete($productType);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
