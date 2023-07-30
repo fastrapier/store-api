@@ -11,7 +11,9 @@ class SpecificationFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'product_type_id' => ProductType::factory()
+            'product_type_id' => ProductType::factory(),
+            'is_active' => $this->faker->boolean,
+            'position' => $this->faker->randomNumber()
         ];
     }
 }

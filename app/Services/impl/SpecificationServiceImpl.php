@@ -15,10 +15,8 @@ class SpecificationServiceImpl implements SpecificationService
         return SpecificationResource::collection(Specification::all());
     }
 
-    public function findById(int $id): SpecificationResource
+    public function findById(Specification $specification): SpecificationResource
     {
-        $specification = Specification::findOrFail($id)->where('id', '=', $id)->first();
-
         return new SpecificationResource($specification);
     }
 
@@ -30,12 +28,11 @@ class SpecificationServiceImpl implements SpecificationService
         return new SpecificationResource(Specification::create($validated));
     }
 
-    public function update(array $validated, int $id): SpecificationResource
+    public function update(array $validated, Specification $specification): SpecificationResource
     {
         if (isset($validated['product_type_id'])) {
             ProductType::findOrFail($validated['product_type_id']);
         }
-        $specification = Specification::findOrFail($id);
 
         $specification->update($validated);
 
@@ -44,10 +41,8 @@ class SpecificationServiceImpl implements SpecificationService
         return new SpecificationResource($specification);
     }
 
-    public function delete(int $id): void
+    public function delete(Specification $specification): void
     {
-        $category = Specification::findOrFail($id);
-
-        $category->delete();
+        $specification->delete();
     }
 }

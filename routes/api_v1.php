@@ -42,3 +42,19 @@ Route::prefix('productType')->controller(ProductTypeController::class)->group(fu
     Route::match(['put', 'patch'], '/{productType}', 'update');
     Route::delete('/{productType}', 'destroy');
 });
+
+Route::prefix("specification")->controller(SpecificationController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{specification}', 'show');
+    Route::match(['put', 'patch'], '/{specification}', 'update');
+    Route::delete('/{specification}', 'destroy');
+});
+
+Route::prefix('specificationValue')->controller(SpecificationValueController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{specificationValue}', 'show');
+    Route::match(['put', 'patch'], '/{specificationValue}', 'update');
+    Route::delete('/{specificationValue}', 'destroy');
+});
