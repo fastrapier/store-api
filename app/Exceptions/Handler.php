@@ -78,13 +78,13 @@ class Handler extends ExceptionHandler
             ], 401);
         });
 
-        $this->renderable(function (Exception $e, Request $request) {
-            return response()->json([
-                'success' => false,
-                'exception' => $e::class,
-                'message' => $e->getMessage(),
-                'code' => 500
-            ], 500);
-        });
+//        $this->renderable(function (Exception $e, Request $request) {
+//            return response()->json([
+//                'success' => false,
+//                'exception' => $e::class,
+//                'message' => $e->getMessage(),
+//                'code' => 500
+//            ], 500);
+//        });
     }
 }

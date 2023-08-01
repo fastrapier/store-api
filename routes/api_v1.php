@@ -2,16 +2,11 @@
 
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\CategoryController;
-use App\Http\Controllers\api\v1\ConfiguratorController;
-use App\Http\Controllers\api\v1\ConfiguratorProductController;
-use App\Http\Controllers\api\v1\ConfiguratorProductTypeController;
-use App\Http\Controllers\api\v1\OrderController;
-use App\Http\Controllers\api\v1\ProductController;
+use App\Http\Controllers\api\v1\DeliveryController;
 use App\Http\Controllers\api\v1\ProductTypeController;
 use App\Http\Controllers\api\v1\SpecificationController;
 use App\Http\Controllers\api\v1\SpecificationValueController;
 use Illuminate\Support\Facades\Route;
-use \Illuminate\Http\Request;
 
 Route::group([
 
@@ -57,4 +52,12 @@ Route::prefix('specificationValue')->controller(SpecificationValueController::cl
     Route::get('/{specificationValue}', 'show');
     Route::match(['put', 'patch'], '/{specificationValue}', 'update');
     Route::delete('/{specificationValue}', 'destroy');
+});
+
+Route::prefix('delivery')->controller(DeliveryController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::get('/{delivery}', 'show');
+    Route::match(['put', 'patch'], '/{delivery}', 'update');
+    Route::delete('/{delivery}', 'destroy');
 });

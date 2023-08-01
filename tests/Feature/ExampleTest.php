@@ -24,7 +24,7 @@ class ExampleTest extends TestCase
         $file = UploadedFile::fake()->image('test.jpg');
 
 
-        $response = $this->json("POST", 'http://localhost:8000/api/v1/categories', [
+        $response = $this->json("POST", 'http://localhost:8000/api/v1/category', [
             'img' => $file,
             'name' => 'test'
         ], [
@@ -34,7 +34,7 @@ class ExampleTest extends TestCase
 
         $json = json_decode($response->getContent(), true);
         \Log::info($response->content());
-        self::assertNotEmpty($json['data']['img']);
+        self::assertNotEmpty($json['img']);
     }
 
     public function test_storage_link()
