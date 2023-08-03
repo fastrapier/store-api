@@ -17,7 +17,7 @@ class ProductTypeServiceImpl implements ProductTypeService
 
     public function findById(ProductType $productType): ProductTypeResource
     {
-        return new ProductTypeResource($productType->with('specifications')->with('products'));
+        return new ProductTypeResource($productType->with('specifications')->with('products')->first());
     }
 
     public function create(array $validated): ProductTypeResource
