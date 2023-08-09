@@ -81,5 +81,5 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
-
 composer.lock
+package-lock.json
