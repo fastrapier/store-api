@@ -1,2 +1,0 @@
-GET http://store-api/api/v1/productType/1
-Accept: application/json
