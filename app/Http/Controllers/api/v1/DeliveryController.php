@@ -12,10 +12,9 @@ class DeliveryController extends Controller
 {
     public function __construct(private readonly DeliveryService $deliveryService)
     {
-//        $this->middleware('auth.role:admin', ['only' => ['update', 'destroy']]);
-//        $this->middleware('auth.role:user,admin', ['only' => ['index', 'show', 'store']]);
+        $this->middleware('auth.role:admin', ['only' => ['update', 'destroy']]);
+        $this->middleware('auth.role:user,admin', ['only' => ['index', 'show', 'store']]);
     }
-
     public function index() {
         return $this->deliveryService->findAll();
     }
@@ -36,7 +35,7 @@ class DeliveryController extends Controller
         return $this->deliveryService->update($validated, $delivery);
     }
 
-    public function delete(Delivery $delivery) {
+    public function destroy(Delivery $delivery) {
         return $this->deliveryService->delete($delivery);
     }
 }
