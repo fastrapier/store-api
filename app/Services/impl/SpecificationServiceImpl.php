@@ -20,12 +20,12 @@ class SpecificationServiceImpl implements SpecificationService
         return new SpecificationResource($specification);
     }
 
-    public function create(array $validated): SpecificationResource
+    public function create(array $validated, ProductType $productType): SpecificationResource
     {
-        if (isset($validated['product_type_id'])) {
-            ProductType::findOrFail($validated['product_type_id']);
-        }
-        return new SpecificationResource(Specification::create($validated));
+        return new SpecificationResource(Specification::create([
+            'name' => $validated['name'],
+            'product_type_id' => $productType->id
+        ]));
     }
 
     public function update(array $validated, Specification $specification): SpecificationResource

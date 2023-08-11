@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\DeleteProductRequest;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -40,12 +39,12 @@ class ProductController extends Controller
         return $this->productService->create($validated);
     }
 
-    public function show(int $id)
+    public function show(Product $product)
     {
-        return $this->productService->findById($id);
+        return $this->productService->find($product);
     }
 
-    public function update(UpdateProductRequest $request, int $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         $validated = $request->validated();
 
@@ -56,21 +55,12 @@ class ProductController extends Controller
             $validated['img'] = Storage::url($validated['img']);
         }
 
-        return $this->productService->update($validated, $id);
+        return $this->productService->update($validated, $product);
     }
 
-    public function destroy(int $id)
+    public function destroy(Product $product)
     {
-        $this->productService->delete($id);
-
-        return response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    public function destroyByIds(DeleteProductRequest $request)
-    {
-        $validated = $request->validated();
-
-        $this->productService->deleteByIds($validated['ids']);
+        $this->productService->delete($product);
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

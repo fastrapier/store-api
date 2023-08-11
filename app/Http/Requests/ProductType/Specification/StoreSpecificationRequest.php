@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Specification;
+namespace App\Http\Requests\ProductType\Specification;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,8 +11,6 @@ class StoreSpecificationRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'product_type_id' => 'required|integer',
-//            'position' => 'nullable|integer',
-//            'is_active' => 'nullable|boolean'
         ];
     }
 

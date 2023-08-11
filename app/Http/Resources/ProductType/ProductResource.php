@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources\ProductType;
 
-use App\Http\Resources\Configurator\ConfiguratorResource;
-use App\Http\Resources\SpecificationValue\ProductSpecificationValueResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +13,6 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'configurator_price' => $this->configurator_price,
         ];
     }
 }

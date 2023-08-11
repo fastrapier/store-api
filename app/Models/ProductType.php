@@ -23,4 +23,9 @@ class ProductType extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function configurations(): HasMany
+    {
+        return $this->hasMany(Configuration::class);
+    }
 }

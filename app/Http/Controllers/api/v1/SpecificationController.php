@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Specification\StoreSpecificationRequest;
-use App\Http\Requests\Specification\UpdateSpecificationRequest;
+use App\Http\Requests\ProductType\Specification\StoreSpecificationRequest;
+use App\Http\Requests\ProductType\Specification\UpdateSpecificationRequest;
+use App\Models\ProductType;
 use App\Models\Specification;
 use App\Services\SpecificationService;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,11 +22,11 @@ class SpecificationController extends Controller
         return $this->specificationService->findAll();
     }
 
-    public function store(StoreSpecificationRequest $request)
+    public function store(StoreSpecificationRequest $request, ProductType $productType)
     {
         $validated = $request->validated();
 
-        return $this->specificationService->create($validated);
+        return $this->specificationService->create($validated, $productType);
     }
 
     public function show(Specification $specification)

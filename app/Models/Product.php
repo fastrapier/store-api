@@ -28,13 +28,23 @@ class Product extends Model
         'product_type_id',
     ];
 
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class, 'product_type_id');
+    }
+
     public function specification_values(): HasMany
     {
         return $this->hasMany(SpecificationValue::class);
     }
 
-    public function configurator(): HasOne
+    public function availableProducts(): HasMany
     {
-        return $this->hasOne(Configurator::class);
+        return $this->hasMany(AvailableProduct::class, 'for_product_id');
+    }
+
+    public function platform(): HasMany
+    {
+        return $this->hasMany(Platform::class, 'product_id');
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductServiceImpl implements ProductService
 {
-    public function update(array $validated, int $id): ProductResource
+    public function update(array $validated, Product $product): ProductResource
     {
         if (isset($validated['category_id'])) {
             Category::findOrFail($validated['category_id']);
@@ -20,7 +20,7 @@ class ProductServiceImpl implements ProductService
             ProductType::findOrFail($validated['product_type_id']);
         }
 
-        $product = Product::with('specification_values')->findOrFail($id);
+        $product = $product->load('specification_values');
 
         $isUpdated = $product->update($validated);
 
@@ -36,7 +36,7 @@ class ProductServiceImpl implements ProductService
         }
 
         if ($isUpdated) {
-            $product = Product::with('specification_values')->findOrFail($id);
+            $product = $product->fresh();
         }
 
         return new ProductResource($product);
@@ -45,16 +45,7 @@ class ProductServiceImpl implements ProductService
 
     public function findAll(): AnonymousResourceCollection
     {
-        $product = Product::with('configurator')->get();
-
-        return ProductResource::collection($product);
-    }
-
-    public function findById(int $id): ProductResource
-    {
-        $product = Product::where('id', '=', $id)->with('configurator')->with('specification_values')->firstOrFail();
-
-        return new ProductResource($product);
+        return ProductResource::collection(Product::all());
     }
 
     public function create(array $validated): ProductResource
@@ -78,9 +69,8 @@ class ProductServiceImpl implements ProductService
         return new ProductResource($product);
     }
 
-    public function delete(int $id): void
+    public function delete(Product $product): void
     {
-        $product = Product::findOrFail($id);
 
         $product->delete();
 
@@ -89,5 +79,15 @@ class ProductServiceImpl implements ProductService
     public function deleteByIds(array $ids): void
     {
         Product::whereIn('id', $ids)->delete();
+    }
+
+    public function find(Product $product): ProductResource
+    {
+        if($product->productType->configurable)
+        {
+            $product = $product->load(['availableProducts', 'platform']);
+        }
+
+        return new ProductResource($product);
     }
 }

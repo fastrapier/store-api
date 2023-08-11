@@ -14,7 +14,8 @@ class UpdateProductTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'max:255|string'
+            'title' => 'max:255|string',
+            'configurable' => 'boolean'
         ];
     }
 }

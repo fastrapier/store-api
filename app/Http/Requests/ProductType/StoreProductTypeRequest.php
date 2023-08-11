@@ -14,7 +14,8 @@ class StoreProductTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255|string'
+            'title' => 'required|max:255|string',
+            'configurable' => 'required|boolean'
         ];
     }
 }

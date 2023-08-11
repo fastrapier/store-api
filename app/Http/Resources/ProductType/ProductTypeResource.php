@@ -14,11 +14,15 @@ class ProductTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'configurable' => $this->configurable,
             'specification' => $this->whenLoaded('specifications', function () {
                 return SpecificationResource::collection($this->specifications);
             }),
             'products' => $this->whenLoaded('products', function () {
                 return ProductResource::collection($this->products);
+            }),
+            'configurations' => $this->whenLoaded('configurations', function () {
+                return $this->configurations;
             })
         ];
     }

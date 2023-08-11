@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ProductType;
 use App\Models\Specification;
 
 interface SpecificationService
@@ -10,7 +11,7 @@ interface SpecificationService
 
     public function findById(Specification $specification);
 
-    public function create(array $validated);
+    public function create(array $validated, ProductType $productType);
 
     public function update(array $validated, Specification $specification);
 

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuthController;
+use App\Http\Controllers\api\v1\AvailableProductController;
 use App\Http\Controllers\api\v1\CategoryController;
+use App\Http\Controllers\api\v1\ConfigurationController;
 use App\Http\Controllers\api\v1\DeliveryController;
 use App\Http\Controllers\api\v1\ProductTypeController;
 use App\Http\Controllers\api\v1\SpecificationController;
@@ -38,12 +40,19 @@ Route::prefix('productType')->controller(ProductTypeController::class)->group(fu
     Route::delete('/{productType}', 'destroy');
 });
 
-Route::prefix("specification")->controller(SpecificationController::class)->group(function () {
-    Route::get('/', 'index');
+Route::prefix("productType/{productType}/specification")->controller(SpecificationController::class)->group(function () {
     Route::post('/', 'store');
-    Route::get('/{specification}', 'show');
     Route::match(['put', 'patch'], '/{specification}', 'update');
     Route::delete('/{specification}', 'destroy');
+});
+Route::prefix('productType/{productType}/configuration')->controller(ConfigurationController::class)->group(function () {
+    Route::post('/', 'store');
+    Route::match(['put', 'patch'], '/{configuration}', 'update');
+    Route::delete('/{configuration}', 'destroy');
+});
+
+Route::prefix('availableProduct')->controller(AvailableProductController::class )->group(function () {
+    Route::post('/', 'store');
 });
 
 Route::prefix('specificationValue')->controller(SpecificationValueController::class)->group(function () {

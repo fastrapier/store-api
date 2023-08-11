@@ -18,6 +18,7 @@ class ProductTypeFactory extends Factory
     {
         return [
             'title' => $this->faker->word,
+            'configurable' => $this->faker->boolean
         ];
     }
 }

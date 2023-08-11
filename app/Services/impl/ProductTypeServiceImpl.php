@@ -17,7 +17,16 @@ class ProductTypeServiceImpl implements ProductTypeService
 
     public function findById(ProductType $productType): ProductTypeResource
     {
-        return new ProductTypeResource($productType->load(['specifications', 'products']));
+        $load = ['specifications', 'products'];
+
+        if($productType->configurable)
+        {
+            $load[] = 'configurations';
+        }
+
+        $productType = $productType->load($load);
+
+        return new ProductTypeResource($productType);
     }
 
     public function create(array $validated): ProductTypeResource

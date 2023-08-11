@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Product;
 
-use App\Http\Resources\Configurator\ConfiguratorResource;
 use App\Http\Resources\SpecificationValue\ProductSpecificationValueResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -24,8 +23,18 @@ class ProductResource extends JsonResource
             'created_at' => $this->created_at,
             'product_type_id' => $this->product_type_id,
             'category_id' => $this->category_id,
-            'configurator' => new ConfiguratorResource($this->configurator),
             'specification_values' => ProductSpecificationValueResource::collection($this->specification_values),
+            'available_products' => $this->whenLoaded('availableProducts', function () {
+                $available_products = $this->availableProducts;
+
+                $prods = [];
+
+                foreach ($available_products as $available_product)
+                {
+                    $prods[$available_product->configuration_id][] = $available_product->id;
+                }
+                return $prods;
+            })
         ];
     }
 }
