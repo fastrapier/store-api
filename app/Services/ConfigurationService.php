@@ -11,5 +11,7 @@ interface ConfigurationService
 
     public function update(array $validated, ProductType $productType, Configuration $configuration);
 
+    public function show(ProductType $productType, Configuration $configuration);
+
     public function destroy(Configuration $configuration);
 }

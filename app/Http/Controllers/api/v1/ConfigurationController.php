@@ -30,6 +30,11 @@ class ConfigurationController extends Controller
         return $this->configurationService->update($validated, $productType, $configuration);
     }
 
+    public function show(ProductType $productType, Configuration $configuration)
+    {
+        return $this->configurationService->show($productType, $configuration);
+    }
+
     public function destroy(Configuration $configuration)
     {
         $this->configurationService->destroy($configuration);

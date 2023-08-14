@@ -34,4 +34,9 @@ class ConfigurationServiceImpl implements ConfigurationService
 
         return new ProductTypeResource($productType->load(['specifications', 'configurations']));
     }
+
+    public function show(ProductType $productType, Configuration $configuration)
+    {
+        return $configuration;
+    }
 }
