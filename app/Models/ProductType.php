@@ -11,7 +11,8 @@ class ProductType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
+        'configurable',
     ];
 
     public function specifications(): HasMany
