@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\ProductType;
-use App\Models\Specification;
 use App\Models\SpecificationValue;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,13 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Category::factory(10)->create();
-
-        ProductType::factory(5)->hasSpecifications(10)->create();
-//        Category::factory(10)->hasChildren(5)->hasProducts(50)->create();
-//        Product::factory(500)->create();
-//
-//
-//        SpecificationValue::factory(50)->create();
+        ProductType::factory(5)->hasSpecifications(5)->hasProducts(10)->hasConfigurations(5)->create();
+        SpecificationValue::factory(25)->create();
 
         User::create([
             'name' => 'admin',

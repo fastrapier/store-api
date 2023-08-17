@@ -50,10 +50,6 @@ class ProductServiceImpl implements ProductService
 
     public function create(array $validated): ProductResource
     {
-        Category::findOrFail($validated['category_id']);
-
-        ProductType::findOrFail($validated['product_type_id']);
-
         $specification_values = $validated['specification_values'];
 
         $product = Product::create($validated);
@@ -64,7 +60,7 @@ class ProductServiceImpl implements ProductService
 
         $product->specification_values()->createMany($specification_values);
 
-        $product = $product->with('specification_values')->with('configurator')->findOrFail($product->id);
+        $product->load(['specification_values', 'availableProducts']);
 
         return new ProductResource($product);
     }

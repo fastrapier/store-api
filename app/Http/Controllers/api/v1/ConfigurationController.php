@@ -35,7 +35,7 @@ class ConfigurationController extends Controller
         return $this->configurationService->show($productType, $configuration);
     }
 
-    public function destroy(Configuration $configuration)
+    public function destroy(ProductType $productType, Configuration $configuration)
     {
         $this->configurationService->destroy($configuration);
 

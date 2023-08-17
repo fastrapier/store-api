@@ -10,7 +10,6 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             'title' => 'max:255|string',
-            'article' => 'max:255|unique:products|string',
             'retail_price' => 'numeric',
             'configurator_price' => 'numeric',
             'in_stock' => 'bool',

@@ -14,7 +14,7 @@ class ProductTypeController extends Controller
 {
     public function __construct(private readonly ProductTypeService $productTypeService)
     {
-//        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
+        $this->middleware('auth.role:admin', ['except' => ['index', 'show']]);
     }
 
     public function index()

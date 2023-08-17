@@ -11,7 +11,7 @@ class UpdateSpecificationRequest extends FormRequest
         return [
             'name' => 'max:255',
             'product_type_id' => 'integer',
-             'position' => 'integer',
+            'position' => 'integer',
             'is_active' => 'boolean'
         ];
     }

@@ -10,7 +10,6 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255|string',
-            'article' => 'required|max:255|unique:products|string',
             'retail_price' => 'required|numeric',
             'configurator_price' => 'required|numeric',
             'in_stock' => 'required|bool',
@@ -19,9 +18,6 @@ class StoreProductRequest extends FormRequest
             'category_id' => 'required|integer',
             'product_type_id' => 'required|integer',
             'specification_values' => "required|string",
-            'configurator' => 'nullable|array',
-            'configurator.*' => 'int|exists:product_types,id',
-            'configurator.*.*' => 'int|exists:products,id'
         ];
     }
 

@@ -19,4 +19,9 @@ class Configuration extends Model
     {
         return $this->belongsTo(ProductType::class, 'product_type_id');
     }
+
+    public function selectedProductType(): BelongsTo
+    {
+        return $this->belongsTo(ProductType::class, 'configuration_product_type_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ProductType;
 
+use App\Http\Resources\ProductType\Configuration\ConfigurationResource;
 use App\Http\Resources\Specification\SpecificationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,7 +23,7 @@ class ProductTypeResource extends JsonResource
                 return ProductResource::collection($this->products);
             }),
             'configurations' => $this->whenLoaded('configurations', function () {
-                return $this->configurations;
+                return ConfigurationResource::collection($this->configurations);
             })
         ];
     }
