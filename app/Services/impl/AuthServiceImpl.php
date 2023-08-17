@@ -26,6 +26,8 @@ class AuthServiceImpl implements AuthService
 
         $user = User::create($validated);
 
+        $user->refresh();
+
         $response = [
             'success' => true,
             'message' => 'User successfully registered',
