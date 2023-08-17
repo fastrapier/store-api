@@ -53,8 +53,9 @@ Route::prefix('productType/{productType}/configuration')->controller(Configurati
     Route::get("/{configuration}", 'show');
 });
 
-Route::prefix('availableProduct')->controller(AvailableProductController::class )->group(function () {
+Route::prefix('products/{product}/availableProducts')->controller(AvailableProductController::class )->group(function () {
     Route::post('/', 'store');
+    Route::match(['put', 'patch'], '/}', 'update');
 });
 
 Route::prefix('products')->controller(ProductController::class)->group(function () {

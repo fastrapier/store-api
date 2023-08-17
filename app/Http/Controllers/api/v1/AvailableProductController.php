@@ -3,42 +3,28 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\AvailableProduct\StoreAvailableProductsRequest;
-use App\Http\Resources\Product\ProductResource;
-use App\Models\AvailableProduct;
+use App\Http\Requests\Product\AvailableProduct\AvailableProductsRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Services\AvailableProductService;
 
 class AvailableProductController extends Controller
 {
-
-
-    public function store(StoreAvailableProductsRequest $request)
+    public function __construct(private readonly AvailableProductService $availableProductService)
+    {
+        $this->middleware('auth.role:admin');
+    }
+    public function store(AvailableProductsRequest $request, Product $product)
     {
         $validated = $request->validated();
 
-        $for_product = Product::findOrFail($validated['for_product_id']);
-
-        foreach ($validated['configurations'] as $configuration)
-        {
-            $configuration_id = $configuration['configuration_id'];
-
-            foreach ($configuration['available_products_ids'] as $available_products_id)
-            {
-                AvailableProduct::create([
-                    'configuration_id' => $configuration_id,
-                    'for_product_id' => $for_product->id,
-                    'available_product_id' => $available_products_id
-                ]);
-            }
-        }
-
-        return new ProductResource($for_product->load(['productType', 'availableProducts']));
+        return $this->availableProductService->store($validated, $product);
     }
 
-    public function update(Request $request, AvailableProduct $availableProduct)
+    public function update(AvailableProductsRequest $request, Product $product)
     {
-        //
+        $validated = $request->validated();
+
+        return $this->availableProductService->update($validated, $product);
     }
 
 }

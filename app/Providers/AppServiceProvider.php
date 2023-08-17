@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Services\AuthService;
+use App\Services\AvailableProductService;
+use App\Services\impl\AvailableProductServiceImpl;
 use App\Services\CategoryService;
 use App\Services\ConfigurationService;
 use App\Services\DeliveryService;
@@ -58,6 +60,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ConfigurationService::class, function () {
             return new ConfigurationServiceImpl();
+        });
+
+        $this->app->bind(AvailableProductService::class, function () {
+            return new AvailableProductServiceImpl();
         });
     }
 
