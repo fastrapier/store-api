@@ -13,6 +13,7 @@ class UpdateProductRequest extends FormRequest
             'retail_price' => 'numeric',
             'configurator_price' => 'numeric',
             'in_stock' => 'bool',
+            'use_in_configurator' => 'boolean',
             'description' => 'string|max:500',
             'category_id' => 'integer',
             'product_type_id' => 'integer',

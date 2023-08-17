@@ -14,6 +14,7 @@ class StoreProductRequest extends FormRequest
             'configurator_price' => 'required|numeric',
             'in_stock' => 'required|bool',
             'img' => 'image|nullable',
+            'use_in_configurator' => 'required|boolean',
             'description' => 'string|max:500|nullable',
             'category_id' => 'required|integer',
             'product_type_id' => 'required|integer',

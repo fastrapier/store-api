@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('retail_price');
             $table->float('configurator_price');
             $table->boolean('in_stock');
+            $table->boolean('use_in_configurator');
             $table->text('description')->nullable();
             $table->string('img')->default('no_image.jpg');
             $table
