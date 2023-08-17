@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Category;
-use App\Models\Configurator;
 use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
