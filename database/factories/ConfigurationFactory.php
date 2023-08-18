@@ -20,8 +20,8 @@ class ConfigurationFactory extends Factory
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
-            'product_type_id' => ProductType::get()->random()->id,
-            'configuration_product_type_id' => ProductType::get()->random()->id,
+            'product_type_id' => ProductType::factory(),
+            'configuration_product_type_id' => ProductType::factory(),
         ];
     }
 }

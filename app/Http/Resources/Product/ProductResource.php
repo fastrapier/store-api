@@ -22,6 +22,7 @@ class ProductResource extends JsonResource
             'img' => $this->img,
             'created_at' => $this->created_at,
             'product_type_id' => $this->product_type_id,
+            'use_in_configurator' => $this->use_in_configurator,
             'category_id' => $this->category_id,
             'specification_values' => ProductSpecificationValueResource::collection($this->specification_values),
             'available_products' => $this->whenLoaded('availableProducts', function () {

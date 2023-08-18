@@ -13,7 +13,7 @@ class SpecificationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'product_type_id' => $this->productType->id,
+//            'product_type_id' => $this->productType->id,
             'is_active' => $this->is_active,
             'position' => $this->position
         ];
