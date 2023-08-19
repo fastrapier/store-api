@@ -3,64 +3,23 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\Platform\PlatformRequest;
 use App\Models\Platform;
+use App\Models\Product;
+use App\Services\PlatformService;
 use Illuminate\Http\Request;
 
 class PlatformController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(private readonly PlatformService $productService)
     {
-        //
+        $this->middleware('auth.role:admin');
+    }
+    public function store(PlatformRequest $request, Product $product)
+    {
+        $validated = $request->validated();
+
+        return $this->productService->store($validated, $product);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Platform $platform)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Platform $platform)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Platform $platform)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Platform $platform)
-    {
-        //
-    }
 }

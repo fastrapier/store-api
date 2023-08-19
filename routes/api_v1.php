@@ -5,6 +5,7 @@ use App\Http\Controllers\api\v1\AvailableProductController;
 use App\Http\Controllers\api\v1\CategoryController;
 use App\Http\Controllers\api\v1\ConfigurationController;
 use App\Http\Controllers\api\v1\DeliveryController;
+use App\Http\Controllers\api\v1\PlatformController;
 use App\Http\Controllers\api\v1\ProductController;
 use App\Http\Controllers\api\v1\ProductTypeController;
 use App\Http\Controllers\api\v1\SpecificationController;
@@ -53,16 +54,14 @@ Route::prefix('productType/{productType}/configuration')->controller(Configurati
     Route::get("/{configuration}", 'show');
 });
 
-Route::prefix('products/{product}/availableProducts')->controller(AvailableProductController::class )->group(function () {
-    Route::post('/', 'store');
-});
-
 Route::prefix('products')->controller(ProductController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
     Route::get('/{product}', 'show');
     Route::match(['put', 'patch'], '/{product}', 'update');
     Route::delete('/{product}', 'destroy');
+    Route::post('/{product}/availableProducts', [AvailableProductController::class, 'store']);
+    Route::post('/{product}/platform', [PlatformController::class, 'store']);
 });
 
 Route::prefix('specificationValue')->controller(SpecificationValueController::class)->group(function () {

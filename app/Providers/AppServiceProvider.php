@@ -13,10 +13,12 @@ use App\Services\impl\CategoryServiceImpl;
 use App\Services\impl\ConfigurationServiceImpl;
 use App\Services\impl\DeliveryServiceImpl;
 use App\Services\impl\OrderServiceImpl;
+use App\Services\impl\PlatformServiceImpl;
 use App\Services\impl\ProductServiceImpl;
 use App\Services\impl\ProductTypeServiceImpl;
 use App\Services\impl\SpecificationServiceImpl;
 use App\Services\OrderService;
+use App\Services\PlatformService;
 use App\Services\ProductService;
 use App\Services\ProductTypeService;
 use App\Services\SpecificationService;
@@ -65,6 +67,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AvailableProductService::class, function () {
             return new AvailableProductServiceImpl();
         });
+
+        $this->app->bind(PlatformService::class, function () {
+            return new PlatformServiceImpl();
+        });
     }
 
     /**
@@ -72,6 +78,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

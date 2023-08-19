@@ -35,6 +35,9 @@ class ProductResource extends JsonResource
                     $prods[$available_product->configuration_id][] = $available_product->id;
                 }
                 return $prods;
+            }),
+            'platform' => $this->whenLoaded('platform', function () {
+                return $this->platform;
             })
         ];
     }
