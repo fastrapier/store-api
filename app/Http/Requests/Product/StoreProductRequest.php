@@ -18,7 +18,7 @@ class StoreProductRequest extends FormRequest
             'description' => 'string|max:500|nullable',
             'category_id' => 'required|integer',
             'product_type_id' => 'required|integer',
-            'specification_values' => "required|string",
+            'specification_values' => "nullable|string",
         ];
     }
 

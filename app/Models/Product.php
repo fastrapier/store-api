@@ -26,6 +26,7 @@ class Product extends Model
         'img',
         'category_id',
         'product_type_id',
+        'use_in_configurator'
     ];
 
     public function productType()

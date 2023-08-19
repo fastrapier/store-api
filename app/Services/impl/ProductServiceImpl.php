@@ -52,13 +52,17 @@ class ProductServiceImpl implements ProductService
     {
         $specification_values = $validated['specification_values'];
 
-        $product = Product::create($validated);
+        $validated['article'] = rand(100, 10000);
 
-        foreach ($specification_values as $id => $specification_value) {
-            $specification_values[$id]['product_id'] = $product->id;
+        $product = Product::create($validated);
+        if (!empty($validated['specification_values'])) {
+            foreach ($specification_values as $id => $specification_value) {
+                $specification_values[$id]['product_id'] = $product->id;
+            }
+
+            $product->specification_values()->createMany($specification_values);
         }
 
-        $product->specification_values()->createMany($specification_values);
 
         $product->load(['specification_values', 'availableProducts']);
 
@@ -79,8 +83,7 @@ class ProductServiceImpl implements ProductService
 
     public function find(Product $product): ProductResource
     {
-        if($product->productType->configurable)
-        {
+        if ($product->productType->configurable) {
             $product = $product->load(['availableProducts', 'platform']);
         }
 
