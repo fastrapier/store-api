@@ -20,11 +20,4 @@ class AvailableProductController extends Controller
         return $this->availableProductService->store($validated, $product);
     }
 
-    public function update(AvailableProductsRequest $request, Product $product)
-    {
-        $validated = $request->validated();
-
-        return $this->availableProductService->update($validated, $product);
-    }
-
 }

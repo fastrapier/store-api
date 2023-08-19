@@ -13,29 +13,6 @@ class AvailableProductServiceImpl implements AvailableProductService
 
     public function store(array $validated, Product $product): ProductResource
     {
-
-        foreach ($validated['configurations'] as $configuration) {
-
-            $arr = [];
-
-            foreach ($configuration['available_products_ids'] as $available_product_id) {
-                $arr[] = [
-                    'configuration_id' => $configuration['configuration_id'],
-                    'for_product_id' => $product->id,
-                    'available_product_id' => $available_product_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                ];
-            }
-
-            AvailableProduct::insert($arr);
-        }
-
-        return new ProductResource($product->load(['productType', 'availableProducts']));
-    }
-
-    public function update(array $validated, Product $product): ProductResource
-    {
         $product->load(['availableProducts']);
 
         $ids = [];
@@ -88,4 +65,5 @@ class AvailableProductServiceImpl implements AvailableProductService
 
         return new ProductResource($product->load(['productType', 'availableProducts']));
     }
+
 }
