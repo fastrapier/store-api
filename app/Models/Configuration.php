@@ -13,6 +13,7 @@ class Configuration extends Model
     protected $fillable = [
         'product_type_id',
         'is_divided',
+        'max_count',
         'configuration_product_type_id'
     ];
 
