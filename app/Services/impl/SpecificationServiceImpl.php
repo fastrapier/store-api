@@ -28,11 +28,8 @@ class SpecificationServiceImpl implements SpecificationService
         ]));
     }
 
-    public function update(array $validated, Specification $specification): SpecificationResource
+    public function update(array $validated, ProductType $productType, Specification $specification): SpecificationResource
     {
-        if (isset($validated['product_type_id'])) {
-            ProductType::findOrFail($validated['product_type_id']);
-        }
 
         $specification->update($validated);
 

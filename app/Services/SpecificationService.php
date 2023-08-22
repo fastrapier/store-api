@@ -13,7 +13,7 @@ interface SpecificationService
 
     public function create(array $validated, ProductType $productType);
 
-    public function update(array $validated, Specification $specification);
+    public function update(array $validated, ProductType $productType, Specification $specification);
 
     public function delete(Specification $specification);
 }

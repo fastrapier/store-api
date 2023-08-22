@@ -34,11 +34,11 @@ class SpecificationController extends Controller
         return $this->specificationService->findById($specification);
     }
 
-    public function update(UpdateSpecificationRequest $request, Specification $specification)
+    public function update(UpdateSpecificationRequest $request,ProductType $productType, Specification $specification)
     {
         $validated = $request->validated();
 
-        return $this->specificationService->update($validated, $specification);
+        return $this->specificationService->update($validated, $productType, $specification);
     }
 
     public function destroy(Specification $specification)
