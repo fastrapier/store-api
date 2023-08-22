@@ -18,6 +18,7 @@ class UpdateProductRequest extends FormRequest
             'category_id' => 'integer',
             'product_type_id' => 'integer',
             'specification_values' => 'nullable|string',
+            'img' => "file|string"
         ];
     }
 
