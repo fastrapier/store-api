@@ -43,7 +43,9 @@ Route::prefix('productType')->controller(ProductTypeController::class)->group(fu
 });
 
 Route::prefix("productType/{productType}/specification")->controller(SpecificationController::class)->group(function () {
+    Route::get("/", 'index');
     Route::post('/', 'store');
+    Route::get('/{specification}', 'show');
     Route::match(['put', 'patch'], '/{specification}', 'update');
     Route::delete('/{specification}', 'destroy');
 });
