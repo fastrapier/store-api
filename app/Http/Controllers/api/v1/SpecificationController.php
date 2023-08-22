@@ -41,7 +41,7 @@ class SpecificationController extends Controller
         return $this->specificationService->update($validated, $productType, $specification);
     }
 
-    public function destroy(Specification $specification)
+    public function destroy(ProductType $productType, Specification $specification)
     {
         $this->specificationService->delete($specification);
 
