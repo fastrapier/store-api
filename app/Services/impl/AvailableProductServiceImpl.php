@@ -24,7 +24,7 @@ class AvailableProductServiceImpl implements AvailableProductService
 
         $arr = [];
 
-        foreach ($validated['configuration'] as $configuration) {
+        foreach ($validated['configurations'] as $configuration) {
             foreach ($configuration['available_products_ids'] as $available_product_id) {
                 if (($key = array_search($available_product_id, $ids)) !== false) {
                     unset($ids[$key]);
