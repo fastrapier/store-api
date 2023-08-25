@@ -11,7 +11,7 @@ class ConfigurationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'configuration_id' => $this->id,
             'max_count' => $this->max_count,
             'quantity_of_divided_item' => $this->quantity_of_divided_item,
             'is_divided' => $this->is_divided,

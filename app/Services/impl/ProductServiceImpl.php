@@ -84,7 +84,8 @@ class ProductServiceImpl implements ProductService
     public function find(Product $product): ProductResource
     {
         if ($product->productType->configurable) {
-            $product = $product->load(['availableProducts', 'platform']);
+            $product->load(['availableProducts', 'platform']);
+            $product->productType->load(['configurations', 'specifications']);
         }
 
         return new ProductResource($product);

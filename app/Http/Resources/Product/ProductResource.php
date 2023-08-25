@@ -21,20 +21,28 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'img' => $this->img,
             'created_at' => $this->created_at,
-            'product_type_id' => $this->product_type_id,
+            'product_type' => $this->when($this->productType->configurable, new ConfigurableProductTypeResource($this->productType)),
             'use_in_configurator' => $this->use_in_configurator,
             'category_id' => $this->category_id,
             'specification_values' => ProductSpecificationValueResource::collection($this->specification_values),
             'available_products' => $this->whenLoaded('availableProducts', function () {
-                $available_products = $this->availableProducts;
+                $arr = [];
 
-                $prods = [];
-
-                foreach ($available_products as $available_product)
-                {
-                    $prods[$available_product->configuration_id][] = $available_product->id;
+                foreach ($this->availableProducts as $availableProduct) {
+                    $arr[$availableProduct->configuration_id][] = $availableProduct->available_product_id;
                 }
-                return $prods;
+
+                $resp = [];
+
+                foreach ($arr as $k => $v)
+                {
+                    $resp[] = [
+                        'specification_id' => $k,
+                        'available_products_ids' => $v
+                    ];
+                }
+
+                return $resp;
             }),
             'platform' => $this->whenLoaded('platform', function () {
                 return $this->platform;
