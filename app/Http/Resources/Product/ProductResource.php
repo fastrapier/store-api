@@ -29,16 +29,19 @@ class ProductResource extends JsonResource
                 $arr = [];
 
                 foreach ($this->availableProducts as $availableProduct) {
-                    $arr[$availableProduct->configuration_id][] = $availableProduct->available_product_id;
+                    $arr[$availableProduct->configuration_id][] = [
+                        'available_product_id' => $availableProduct->available_product_id,
+                        'title' => $availableProduct->availableProduct->title,
+                        'price' => $availableProduct->availableProduct->configurator_price
+                    ];
                 }
 
                 $resp = [];
 
-                foreach ($arr as $k => $v)
-                {
+                foreach ($arr as $k => $v) {
                     $resp[] = [
-                        'specification_id' => $k,
-                        'available_products_ids' => $v
+                        'configuration_id' => $k,
+                        'available_products' => $v
                     ];
                 }
 

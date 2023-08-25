@@ -20,4 +20,11 @@ class AvailableProduct extends Model
     {
         return $this->belongsTo(Configuration::class, 'configuration_id');
     }
+
+    public function forProduct() {
+        return $this->belongsTo(Product::class, 'for_product_id');
+    }
+    public function availableProduct() {
+        return $this->belongsTo(Product::class, 'available_product_id');
+    }
 }
