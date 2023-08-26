@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ProductType\Configuration;
 
+use App\Http\Resources\Product\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -10,6 +11,12 @@ class ConfigurationResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $ids = [];
+
+        foreach ($this->productType->products as $product) {
+            $ids[] = $product->id;
+        }
+
         return [
             'configuration_id' => $this->id,
             'max_count' => $this->max_count,
@@ -18,8 +25,10 @@ class ConfigurationResource extends JsonResource
             'product_type' => [
                 'configuration_product_type_id' => $this->selectedProductType->id,
                 'title' => $this->selectedProductType->title,
-                'configurable' => $this->selectedProductType->configurable
+                'configurable' => $this->selectedProductType->configurable,
+                'products' => $ids
             ]
         ];
+
     }
 }
