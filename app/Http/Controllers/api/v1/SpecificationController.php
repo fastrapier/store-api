@@ -29,7 +29,7 @@ class SpecificationController extends Controller
         return $this->specificationService->create($validated, $productType);
     }
 
-    public function show(Specification $specification)
+    public function show(ProductType $productType, Specification $specification)
     {
         return $this->specificationService->findById($specification);
     }
