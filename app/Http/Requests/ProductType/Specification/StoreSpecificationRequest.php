@@ -10,6 +10,8 @@ class StoreSpecificationRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'is_active' => 'required|boolean',
+            'position' => "required|integer"
         ];
     }
 

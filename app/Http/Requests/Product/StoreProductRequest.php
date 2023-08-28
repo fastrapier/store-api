@@ -16,8 +16,8 @@ class StoreProductRequest extends FormRequest
             'img' => 'image|nullable',
             'use_in_configurator' => 'required|boolean',
             'description' => 'string|max:500|nullable',
-            'category_id' => 'required|integer',
-            'product_type_id' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
+            'product_type_id' => 'required|integer|exists:product_types,id',
             'specification_values' => "nullable|string",
         ];
     }

@@ -13,14 +13,13 @@ class ProductServiceImpl implements ProductService
 {
     public function update(array $validated, Product $product): ProductResource
     {
-        if (isset($validated['category_id'])) {
-            Category::findOrFail($validated['category_id']);
-        }
-        if (isset($validated['product_type_id'])) {
-            ProductType::findOrFail($validated['product_type_id']);
-        }
 
         $product = $product->load('specification_values');
+
+        if(empty($validated['img']))
+        {
+            $validated['img'] = $product->img;
+        }
 
         $isUpdated = $product->update($validated);
 
