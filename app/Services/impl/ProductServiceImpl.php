@@ -21,22 +21,42 @@ class ProductServiceImpl implements ProductService
             $validated['img'] = $product->img;
         }
 
-        $isUpdated = $product->update($validated);
 
         if (!empty($validated['specification_values'])) {
-            $isUpdated = true;
 
-            foreach ($validated['specification_values'] as $key => $value) {
-                $product->specification_values()->where([
-                    ['specification_id', "=", $value['specification_id']],
-                    ['product_id', "=", $product->id]
-                ])->updateOrCreate(['specification_id' => $value['specification_id'], 'value' => $value['value'], 'product_id' => $product->id]);
+            foreach($validated['specification_values'] as $key => $val)
+            {
+                $found = false;
+
+                foreach ($product->specification_values as $k => $v)
+                {
+                    if($val['specification_id'] == $v->specification_id)
+                    {
+                        $product->specification_values()->where([
+                            ['specification_id', "=", $val['specification_id']],
+                            ['product_id', "=", $product->id]
+                        ])->update(['specification_id' => $val['specification_id'], 'value' => $val['value'], 'product_id' => $product->id]);
+
+                        $found = true;
+                    }
+                }
+
+                if(!$found)
+                {
+                    $product->specification_values()->create([
+                        'specification_id' => $val['specification_id'],
+                        'value' => $val['value'],
+                        'product_id' => $product->id
+                    ]);
+                }
             }
         }
 
-        if ($isUpdated) {
-            $product = $product->fresh();
-        }
+        unset($validated['specification_values']);
+
+        $product->update($validated);
+
+        $product = $product->fresh();
 
         return new ProductResource($product);
     }
