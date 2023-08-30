@@ -11,13 +11,6 @@ class ConfigurationResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $ids = [];
-
-        foreach ($this->selectedProductType->products as $product) {
-            $ids[] = $product->id;
-        }
-
-
 
         return [
             'configuration_id' => $this->id,
@@ -28,7 +21,13 @@ class ConfigurationResource extends JsonResource
                 'configuration_product_type_id' => $this->selectedProductType->id,
                 'title' => $this->selectedProductType->title,
                 'configurable' => $this->selectedProductType->configurable,
-                'products' => $ids
+                'products' => $this->selectedProductType->products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'title' => $product->title,
+                        'configurator_price' => $product->configurator_price
+                    ];
+                })
             ]
         ];
 
