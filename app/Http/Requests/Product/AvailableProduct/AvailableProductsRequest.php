@@ -11,7 +11,7 @@ class AvailableProductsRequest extends FormRequest
         return [
             'configurations' => 'required|array',
             'configurations.*.configuration_id' => 'required|integer|exists:configurations,id',
-            'configurations.*.available_products_ids' => 'required|array',
+            'configurations.*.available_products_ids' => 'required|array|present',
             'configurations.*.available_products_ids.*' => 'required|integer|exists:products,id'
         ];
     }
