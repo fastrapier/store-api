@@ -13,9 +13,11 @@ class ConfigurationResource extends JsonResource
     {
         $ids = [];
 
-        foreach ($this->productType->products as $product) {
+        foreach ($this->selectedProductType->products as $product) {
             $ids[] = $product->id;
         }
+
+
 
         return [
             'configuration_id' => $this->id,
