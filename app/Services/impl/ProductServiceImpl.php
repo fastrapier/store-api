@@ -21,6 +21,10 @@ class ProductServiceImpl implements ProductService
             $validated['img'] = $product->img;
         }
 
+        if(!empty($validated['product_type']) && $product->productType->id != $validated['product_type'])
+        {
+            $product->specification_values()->delete();
+        }
 
         if (!empty($validated['specification_values'])) {
 
