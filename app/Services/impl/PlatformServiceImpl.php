@@ -14,7 +14,7 @@ class PlatformServiceImpl implements PlatformService
     {
         foreach ($validated['platform'] as $elem)
         {
-            $configuration_id = $validated['configuration_id'];
+            $configuration_id = $elem['configuration_id'];
 
             $selected_product_id = $elem['selected_product_id'];
 
