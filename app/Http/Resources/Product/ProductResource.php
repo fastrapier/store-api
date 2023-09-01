@@ -30,7 +30,13 @@ class ProductResource extends JsonResource
 
                 foreach ($this->availableProducts as $availableProduct) {
 
-                    $arr[$availableProduct->configuration_id][] = $availableProduct->available_product_id;
+                    $arr[$availableProduct->configuration_id]['ids'][] = $availableProduct->available_product_id;
+                    $arr[$availableProduct->configuration_id]['products'][] = [
+                        'id' => $availableProduct->available_product_id,
+                        'price' => $availableProduct->availableProduct->configurator_price,
+                        'title' => $availableProduct->availableProduct->title
+                    ];
+
                 }
 
                 $resp = [];
@@ -38,14 +44,8 @@ class ProductResource extends JsonResource
                 foreach ($arr as $k => $v) {
                     $resp[] = [
                         'configuration_id' => $k,
-                        'ids' => $v,
-                        'products' => $this->availableProducts->map(function ($prod) {
-                            return [
-                                'id' => $prod->available_product_id,
-                                'price' => $prod->availableProduct->configurator_price,
-                                'title' => $prod->availableProduct->title
-                            ];
-                        })
+                        'ids' => $v['ids'],
+                        'products' => $v['products']
                     ];
                 }
 
